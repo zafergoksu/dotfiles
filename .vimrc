@@ -1,8 +1,11 @@
 set number
 set paste
+set autoindent
 set pastetoggle=<F2>
 syntax enable
+set tabstop=4
 set shiftwidth=4
+set expandtab
 
 execute pathogen#infect()
 syntax on
@@ -53,6 +56,8 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
 let g:airline#extensions#whitespace#mixed_indent_algo=1
+
+"let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''"}
 
 " Key mappings
 	" Set Leader to Space
