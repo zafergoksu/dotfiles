@@ -74,3 +74,23 @@ let g:airline#extensions#whitespace#mixed_indent_algo=1
 
 	" space-q to quit (doesn't save, watch out!)
 		nnoremap <leader>q :q!<cr>
+
+	" splitting
+		nnoremap <leader><leader>- :split
+		nnoremap <leader><leader>/ :vsplit
+
+	" splitting navi maps
+		nnoremap <C-J> <C-W><C-J>
+		nnoremap <C-K> <C-W><C-K>
+		nnoremap <C-L> <C-W><C-L>
+		nnoremap <C-H> <C-W><C-H>
+
+	" splitting configs
+		set splitbelow
+		set splitright
+
+
+
+
+
+
