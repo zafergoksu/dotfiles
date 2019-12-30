@@ -83,26 +83,16 @@ bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
 
 # workspaces
-set $ws1 1 # terminals
-set $ws2 2 # firefox
-set $ws3 3 # spotify
-set $ws4 4 # steam
-set $ws5 5 # discord
-set $ws6 6 #
-set $ws7 7 #
-set $ws8 8 #
-set $ws9 9 #
-set $ws0 0 # etc
-
-# assigning classes to workspaces
-assign [class="Termite"] $ws1
-assign [class="firefox"] $ws2
-for_window [class="Spotify"] move to workspace $ws3
-assign [class="steam"]   $ws4
-assign [class="discord"] $ws5
-
-exec firefox $ws2
-exec spotify $ws3
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws8 9
+set $ws8 0
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -113,8 +103,8 @@ bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws0
+bindsym $mod+8 workspace $ws9
+bindsym $mod+8 workspace $ws0
 
 # Move focused container to workspace
 bindsym $mod+Ctrl+1 move container to workspace $ws1
@@ -125,8 +115,8 @@ bindsym $mod+Ctrl+5 move container to workspace $ws5
 bindsym $mod+Ctrl+6 move container to workspace $ws6
 bindsym $mod+Ctrl+7 move container to workspace $ws7
 bindsym $mod+Ctrl+8 move container to workspace $ws8
-bindsym $mod+Ctrl+9 move container to workspace $ws9
-bindsym $mod+Ctrl+0 move container to workspace $ws0
+bindsym $mod+Ctrl+8 move container to workspace $ws9
+bindsym $mod+Ctrl+8 move container to workspace $ws0
 
 # Move to workspace with focused container
 bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
@@ -137,8 +127,8 @@ bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws8; workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws8; workspace $ws0
+bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws9
+bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws0
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
@@ -206,10 +196,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 5 px or 5 ppt
-        bindsym k resize grow height 5 px or 5 ppt
-        bindsym l resize shrink height 5 px or 5 ppt
-        bindsym semicolon resize grow width 5 px or 5 ppt
+        bindsym h resize shrink width 5 px or 5 ppt
+        bindsym j resize grow height 5 px or 5 ppt
+        bindsym k resize shrink height 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -225,9 +215,12 @@ mode "resize" {
 # Autostart applications
 exec --no-startup-id feh --bg-fill ~/Pictures/wallpaper.jpg
 exec --no-startup-id nm-applet
-# exec --no-startup-id xfce4-power-manager
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id pamac-tray
+exec --no-startup-id clipit
+exec_always --no-startup-id ff-theme-util
+exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id $HOME/.config/polybar/i3wmthemer_bar_launch.sh
-exec_always --no-startup-id dunst
 
 # Theme colors
 client.focused #707880 #1d1f21 #707880 #8c9440 #8c9440
@@ -283,12 +276,28 @@ mode "$mode_gaps_outer" {
 
 # set power-manager and volume control
 exec --no-startup-id mate-power-manager
+exec --no-startup-id dunst
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 0 -q set Master 2dB+ unmute
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 0 -q set Master 2db- unmute
-bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
-# touchpad on and off controller on laptop with Fn+<touchpad control functional key>
-bindsym XF86TouchpadOn exec --no-startup-id synclient Touchpadoff=0
-bindsym XF86TouchpadOff exec --no-startup-id synclient Touchpadoff=1
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
+# Touchpad controls
+bindsym XF86TouchpadToggle exec ~/.config/i3/toggletouchpad.sh # toggle touchpad
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+assign [class="Termite"] $ws1
+assign [class="firefox"] $ws2
+for_window [class="Spotify"] move to workspace $ws3
+exec firefox $ws2
+exec spotify $ws3
