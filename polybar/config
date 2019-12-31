@@ -428,7 +428,7 @@ interval = 1
 format-prefix = " "
 format = <label>
 exec = python3 /home/zafer/.config/polybar/polybar-spotify-master/spotify_status.py -f '{artist}: {song}'
-;format-underline = #1db954
+format-underline = #1db954
 
 [settings]
 screenchange-reload = true
