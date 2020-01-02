@@ -309,6 +309,8 @@ type = internal/alsa
 
 format-volume = <label-volume>
 format-volume-underline = #92e234
+format-volume-prefix = " "
+format-volume-foreground = ${colors.foreground-alt}
 label-volume = VOL %percentage%%
 label-volume-foreground = ${root.foreground}
 
