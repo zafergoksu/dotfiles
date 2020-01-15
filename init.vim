@@ -5,7 +5,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'zchee/deoplete-jedi'
 Plug 'morhetz/gruvbox'
 Plug 'artur-shaik/vim-javacomplete2'
@@ -18,7 +17,7 @@ call plug#end()
 " basics
 filetype plugin indent on
 syntax on set number
-set number
+set number relativenumber
 set incsearch
 set ignorecase
 set smartcase
