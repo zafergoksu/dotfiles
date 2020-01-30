@@ -1,13 +1,13 @@
 set $mod Mod4
 
 exec --no-startup-id picom -b
-new_window pixel 1
+new_window pixel 4
 new_float normal
 
 hide_edge_borders none
 
 bindsym $mod+u border none
-bindsym $mod+y border pixel 1
+bindsym $mod+y border pixel 4
 bindsym $mod+n border normal
 
 floating_modifier $mod
