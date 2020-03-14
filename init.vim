@@ -5,7 +5,9 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'morhetz/gruvbox'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'tsony-tsonev/nerdtree-git-plugin'
+" use pip install jedi to have proper python support with coc
+" Plug 'davidhalter/jedi-vim'
+" Plug 'tsony-tsonev/nerdtree-git-plugin'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
@@ -71,6 +73,7 @@ let g:coc_global_extensions = [
   \ 'coc-eslint', 
   \ 'coc-prettier', 
   \ 'coc-json', 
+  \ 'coc-python',
   \ 'coc-java',
   \ ]
 
