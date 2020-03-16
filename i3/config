@@ -1,13 +1,13 @@
 set $mod Mod4
 
 exec --no-startup-id picom -b
-new_window pixel 4
+new_window pixel 2
 new_float normal
 
 hide_edge_borders none
 
 bindsym $mod+u border none
-bindsym $mod+y border pixel 4
+bindsym $mod+y border pixel 2
 bindsym $mod+n border normal
 
 floating_modifier $mod
@@ -17,10 +17,20 @@ bindsym $mod+Return exec termite
 # Window kill command
 bindsym $mod+Shift+q kill
 
-exec --no-startup-id xinput --set-prop 8 298 -1
+exec --no-startup-id flameshot
+exec --no-startup-id xinput --set-prop 13 330 1
+# exec --no-startup-id xinput --set-prop 11 339 -1
+
+# set desktop background with custom effect
+exec --no-startup-id betterlockscreen -w dim
+
+# Alternative (set last used background)
+exec --no-startup-id source ~/.fehbg
 
 # start program launcher
 bindsym $mod+d exec --no-startup-id rofi -show run
+
+bindsym $mod+shift+x exec betterlockscreen -l dim
 
 # change focus
 bindsym $mod+h focus left
@@ -90,13 +100,13 @@ bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
 
 # workspaces
-set $ws1 1 # terminals
-set $ws2 2 # firefox
-set $ws3 3 # spotify
-set $ws4 4 # steam
-set $ws5 5 # discord
-set $ws6 6 #
-set $ws7 7 #
+set $ws1 TERM
+set $ws2 WEB
+set $ws3 MUSIC
+set $ws4 STEAM
+set $ws5 DISCORD
+set $ws6 LUTRIS
+set $ws7 MEDIA
 set $ws8 8 #
 set $ws9 9 #
 set $ws0 0 # etc
@@ -107,6 +117,7 @@ assign [class="firefox"] $ws2
 for_window [class="Spotify"] move to workspace $ws3
 assign [class="Steam"]   $ws4
 assign [class="discord"] $ws5
+assign [class="Lutris"] $ws6
 
 for_window [class="^Steam$" title="^Friends List$"] floating enable
 for_window [class="^Steam$" title="Steam - News"] floating enable
@@ -121,9 +132,9 @@ for_window [title="^Steam Keyboard$"] floating enable
 
 exec termite $ws1
 exec firefox $ws2
-exec spotify $ws3
+# exec spotify $ws3
 # exec steam   $ws4
-exec discord $ws5
+# exec discord $ws5
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -227,10 +238,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 5 px or 5 ppt
-        bindsym k resize grow height 5 px or 5 ppt
-        bindsym l resize shrink height 5 px or 5 ppt
-        bindsym semicolon resize grow width 5 px or 5 ppt
+        bindsym h resize shrink width 5 px or 5 ppt
+        bindsym j resize grow height 5 px or 5 ppt
+        bindsym k resize shrink height 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -243,11 +254,33 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
+bar {
+  # command in i3-gaps to allow rgba colors for i3bar
+  i3bar_command i3bar -t
+
+  position            top
+  tray_output         none  # do not show tray output
+  workspace_buttons   no    # do not show workspace buttons
+  height              40    # same height as polybar
+
+  # prevent any accidental clicks/scrolls
+  bindsym button1 nop
+  bindsym button2 nop
+  bindsym button3 nop
+  bindsym button4 nop
+  bindsym button5 nop
+
+  colors {
+    # set bar background to transparent
+    background #00000000
+  }
+}
+
 # Autostart applications
-exec --no-startup-id feh --bg-fill ~/Pictures/Backgrounds/Dark_Ivy.jpg
+exec --no-startup-id feh --bg-fill ~/Pictures/Backgrounds/rocket.jpg
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
-exec_always --no-startup-id $HOME/.config/polybar/i3wmthemer_bar_launch.sh
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id dunst
 
 # Theme colors
@@ -304,12 +337,12 @@ mode "$mode_gaps_outer" {
 
 # Media volume controls
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
-bindsym XF86AudioLowerVolume exec amixer sset 'Master' 5%-
-bindsym XF86AudioRaiseVolume exec amixer sset 'Master' 5%+
+bindsym XF86AudioLowerVolume exec amixer sset 'Master' 1%-
+bindsym XF86AudioRaiseVolume exec amixer sset 'Master' 1%+
 
 # touchpad on and off controller on laptop with Fn+<touchpad control functional key>
-bindsym XF86TouchpadOn exec --no-startup-id synclient Touchpadoff=0
-bindsym XF86TouchpadOff exec --no-startup-id synclient Touchpadoff=1
+# bindsym $mod+Shift+z exec --no-startup-id synclient Touchpadoff=0
+# bindsym $mod+Shift+x exec --no-startup-id synclient Touchpadoff=1
 
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
