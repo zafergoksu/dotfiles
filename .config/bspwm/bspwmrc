@@ -11,6 +11,8 @@ nm-applet &
 blueman-applet &
 flameshot &
 dunst &
+# keep same cursor theme
+xsetroot -cursor_name left_ptr &
 
 # Code, Browser, music, games, social, media, files
 bspc monitor DP-2 -d 1 4 5 7
