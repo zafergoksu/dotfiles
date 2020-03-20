@@ -1,0 +1,38 @@
+#! /bin/sh
+
+killall -9 sxhkd dunst picom nm-applet blueman-applet flameshot
+
+sxhkd &
+feh --bg-fill ~/Pictures/Backgrounds/cyperpunk-city.jpg &
+$HOME/.config/polybar/launch.sh &
+# xfce4-power-manager &
+picom &
+nm-applet &
+blueman-applet &
+flameshot &
+dunst &
+
+# Code, Browser, music, games, social, media, files
+bspc monitor DP-2 -d 1 4 5 7
+bspc monitor HDMI-0 -d 2 3 6
+
+bspc config border_width         2
+bspc config window_gap          12
+
+bspc config split_ratio          0.52
+bspc config focus_follows_pointer true
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+bspc config pointer_mod mod4
+bspc config pointer_action1 move
+
+bspc config normal_border_color     "#19191C"
+bspc config focused_border_color     "#FFFFFF"
+
+bspc rule -a Termite desktop='1' follow=on
+bspc rule -a firefox desktop='2' follow=on
+bspc rule -a Steam desktop='4'
+bspc rule -a discord desktop='5'
+bspc rule -a Lutris desktop='4' follow=on
+bscp rule -a vlc desktop='6'
+bspc rule -a Thunar desktop='7'
