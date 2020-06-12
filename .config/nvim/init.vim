@@ -1,8 +1,12 @@
 call plug#begin('~/.config/nvim/bundle')
 Plug 'vim-airline/vim-airline'
-Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
+Plug 'pangloss/vim-javascript'
+Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'voldikss/vim-floaterm'
+
 Plug 'morhetz/gruvbox'
+Plug 'arcticicestudio/nord-vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " use pip install jedi to have proper python support with coc
@@ -13,6 +17,12 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
+Plug 'tpope/vim-fugitive' " git tool
+
+Plug 'joshdick/onedark.vim'
+Plug 'mhinz/vim-startify'
+Plug 'tylerbrazier/vim-bracepair'
+
 " call PlugInstall to install new plugins
 call plug#end()
 
@@ -23,30 +33,37 @@ set incsearch
 set ignorecase
 set smartcase
 set nohlsearch
-set tabstop=4
-set softtabstop=0
-set shiftwidth=4
 set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set nobackup
+set noswapfile
+set notimeout
 
 " Syntax enable
 "let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+syntax on
 set termguicolors
-set background=dark
-colorscheme gruvbox
+"colorscheme gruvbox
+"set background=dark
+"colorscheme nord
+
+colorscheme onedark
 
 " preferences
 inoremap fd <ESC>
 let mapleader = "\<Space>"
 set pastetoggle=<F2>
 
-nmap <C-n> :NERDTreeToggle<CR>
+"nmap <C-n> :NERDTreeToggle<CR>
 vmap ++ <plug>NERDCommenterToggle
 nmap ++ <plug>NERDCommenterToggle
 
 let g:NERDTreeGitStatusWithFlags = 1
 " let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 " let g:NERDTreeGitStatusNodeColorization = 1
-" let g:NERDTreeColorMapCustom = {
+let g:NERDTreeColorMapCustom = {
     \ "Staged"    : "#0ee375",  
     \ "Modified"  : "#d9bf91",  
     \ "Renamed"   : "#51C9FC",  
@@ -65,18 +82,6 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " ctrlp
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
-" coc config
-let g:coc_global_extensions = [
-  \ 'coc-snippets',
-  \ 'coc-pairs',
-  \ 'coc-tsserver',
-  \ 'coc-eslint', 
-  \ 'coc-prettier', 
-  \ 'coc-json', 
-  \ 'coc-python',
-  \ 'coc-java',
-  \ ]
-
 set hidden
 set updatetime=300
 
@@ -93,6 +98,8 @@ nnoremap tj :tabprev<cr>
 nnoremap th :tabfirst<cr>
 nnoremap tl :tablast<cr>
 
+nnoremap <tab> :bnext<cr>
+
 " space-s to save
 nnoremap <leader>s :w<cr>
 
@@ -108,6 +115,17 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+map <Leader>y "+y
+map <Leader>p "+p
+
+" Explorer
+nmap <leader>e :CocCommand explorer<CR>
+nmap <leader>f :CocCommand explorer --preset floating<CR>
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+
+nnoremap <leader>> <C-W>>
+nnoremap <leader>< <C-W><
 
 " splitting configs
 set splitbelow
@@ -188,3 +206,48 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+
+set autoindent
+set smartindent
+
+filetype on
+filetype plugin on
+filetype indent on
+
+" coc config
+let g:coc_global_extensions = [
+  \ 'coc-snippets',
+  \ 'coc-html',
+  \ 'coc-css',
+  \ 'coc-tsserver',
+  \ 'coc-eslint', 
+  \ 'coc-prettier', 
+  \ 'coc-json', 
+  \ 'coc-python',
+  \ 'coc-java',
+  \ 'coc-explorer',
+  \ ]
+" from readme
+
+let g:startify_session_dir='~/.config/nvim/session'
+
+if filereadable(expand('~/.cache/startify_bookmarks'))
+    source ~/.cache/startify_bookmarks
+endif
+
+let g:startify_lists = [
+          \ { 'type': 'files',     'header': ['   Files']            },
+          \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
+          \ { 'type': 'sessions',  'header': ['   Sessions']       },
+          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+          \ ]
+
+function! s:sy_add_bookmark(bookmark)
+  if !exists('g:startify_bookmarks')
+    let g:startify_bookmarks = []
+  endif
+  let g:startify_bookmarks += [ a:bookmark ]
+  "writefile(g:startify_bookmarks, ~/.cache/startify_bookmarks, "w")
+endfunction
+
+command! -nargs=1 StartifyAddBookmark call <sid>sy_add_bookmark(<q-args>)
