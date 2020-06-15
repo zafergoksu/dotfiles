@@ -1,0 +1,11 @@
+#!/bin/sh
+
+EMOJI_PATH="$HOME/.config/rofi/emoji-list"
+
+line=`cat $EMOJI_PATH | rofi -dmenu -i -markup-rows -p "emoji: " -drun-display-format "{name}" -lines 4 -columns 6`
+[[ -z $line ]] && exit
+a="${line#*>}"
+b="${a%<*}"
+echo -n $b | xclip -sel clipboard
+
+notify-send "Copied emoji to clipboard" "$b"
