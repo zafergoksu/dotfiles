@@ -2,11 +2,23 @@ call plug#begin('~/.config/nvim/bundle')
 Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/nerdcommenter'
 Plug 'pangloss/vim-javascript'
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'voldikss/vim-floaterm'
+
+" JSX and TSX support
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'ianks/vim-tsx'
 
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
+Plug 'joshdick/onedark.vim'
+Plug 'chriskempson/base16-vim'
+
+" GUI enhancements
+"Plug 'itchyny/lightline.vim'
+"Plug 'mengelbrecht/lightline-bufferline'
+Plug 'machakann/vim-highlightedyank'
+Plug 'andymass/vim-matchup'
+Plug 'shinchu/lightline-gruvbox.vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " use pip install jedi to have proper python support with coc
@@ -16,12 +28,16 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
 Plug 'airblade/vim-gitgutter'
-Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
+"Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
 Plug 'tpope/vim-fugitive' " git tool
 
-Plug 'joshdick/onedark.vim'
-Plug 'mhinz/vim-startify'
-Plug 'tylerbrazier/vim-bracepair'
+" Fuzzy finder
+"Plug 'airblade/vim-rooter'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+Plug 'jiangmiao/auto-pairs'
+Plug 'Asheq/close-buffers.vim'
 
 " call PlugInstall to install new plugins
 call plug#end()
@@ -45,20 +61,28 @@ set notimeout
 "let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 syntax on
 set termguicolors
-"colorscheme gruvbox
-"set background=dark
+set bg=dark
+let base16colorspace=256
+colorscheme base16-gruvbox-dark-hard
 "colorscheme nord
 
-colorscheme onedark
+" colorscheme onedark
+
+" Brighter comments
+call Base16hi("Comment", g:base16_gui09, "", g:base16_cterm09, "", "", "")
 
 " preferences
-inoremap fd <ESC>
+" inoremap fd <ESC>
 let mapleader = "\<Space>"
 set pastetoggle=<F2>
+set mouse=a
 
 "nmap <C-n> :NERDTreeToggle<CR>
 vmap ++ <plug>NERDCommenterToggle
 nmap ++ <plug>NERDCommenterToggle
+
+" set filetypes as typescript.tsx
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
 let g:NERDTreeGitStatusWithFlags = 1
 " let g:WebDevIconsUnicodeDecorateFolderNodes = 1
@@ -79,8 +103,31 @@ let g:NERDTreeIgnore = ['^node_modules$']
 " vim-prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-" ctrlp
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+" <leader>s for Rg search
+noremap <C-t> :Rg
+let g:fzf_layout = { 'down': '~20%' }
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+noremap <C-f> :Files <cr>
+
+function! s:list_cmd()
+  let base = fnamemodify(expand('%'), ':h:.:S')
+  return base == '.' ? 'fd --type file --follow' : printf('fd --type file --follow | proximity-sort %s', shellescape(expand('%')))
+endfunction
+
+"command! -bang -nargs=? -complete=dir Files
+  "\ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
+  "\                               'options': '--tiebreak=index'}, <bang>0)
+
+let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
+let $FZF_DEFAULT_OPTS="--preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file || (bat --style=numbers --color=always {} || highlight -O ansi -l {} || coderay {} || rougify {} || cat {}) 2> /dev/null'"
+let g:fzf_layout = { 'down': '40%' }
+let g:fzf_nvim_statusline = 0
 
 set hidden
 set updatetime=300
@@ -99,6 +146,7 @@ nnoremap th :tabfirst<cr>
 nnoremap tl :tablast<cr>
 
 nnoremap <tab> :bnext<cr>
+nnoremap <S-tab> :bprev<cr>
 
 " space-s to save
 nnoremap <leader>s :w<cr>
@@ -116,13 +164,27 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" copy to clipboard
 map <Leader>y "+y
 map <Leader>p "+p
 
+" GoTo code navigation.
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gy <Plug>(coc-type-definition)
+nmap <leader>gi <Plug>(coc-implementation)
+nmap <leader>gr <Plug>(coc-references)
+nmap <leader>rr <Plug>(coc-rename)
+nmap <leader>g[ <Plug>(coc-diagnostic-prev)
+nmap <leader>g] <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
+nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
+nnoremap <leader>cr :CocRestart
+
+nnoremap <C-p> :GFiles<CR>
+
 " Explorer
 nmap <leader>e :CocCommand explorer<CR>
-nmap <leader>f :CocCommand explorer --preset floating<CR>
-autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+"autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 nnoremap <leader>> <C-W>>
 nnoremap <leader>< <C-W><
@@ -132,10 +194,17 @@ set splitbelow
 set splitright
 
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -207,6 +276,36 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
+" Lightline
+"let g:lightline = {
+      "\ 'colorscheme': 'gruvbox',
+      "\ 'active': {
+      "\   'left': [ [ 'mode', 'paste' ],
+      "\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      "\ },
+      "\ 'component_expand': {
+      "\   'buffers': 'lightline#bufferline#buffers'
+      "\ },
+      "\ 'component_type': {
+      "\   'buffers': 'tabsel'
+      "\ },
+      "\ 'component_function': {
+      "\   'filename': 'LightlineFilename',
+      "\   'cocstatus': 'coc#status'
+      "\ }
+      "\ }
+"function! LightlineFilename()
+  "return expand('%:t') !=# '' ? @% : '[No Name]'
+"endfunction
+
+"" Use auocmd to force lightline update.
+"autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+
+"let g:lightline.colorscheme = 'gruvbox'
+
+" Use auocmd to force lightline update.
+"autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+
 set autoindent
 set smartindent
 
@@ -228,26 +327,3 @@ let g:coc_global_extensions = [
   \ 'coc-explorer',
   \ ]
 " from readme
-
-let g:startify_session_dir='~/.config/nvim/session'
-
-if filereadable(expand('~/.cache/startify_bookmarks'))
-    source ~/.cache/startify_bookmarks
-endif
-
-let g:startify_lists = [
-          \ { 'type': 'files',     'header': ['   Files']            },
-          \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
-          \ { 'type': 'sessions',  'header': ['   Sessions']       },
-          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-          \ ]
-
-function! s:sy_add_bookmark(bookmark)
-  if !exists('g:startify_bookmarks')
-    let g:startify_bookmarks = []
-  endif
-  let g:startify_bookmarks += [ a:bookmark ]
-  "writefile(g:startify_bookmarks, ~/.cache/startify_bookmarks, "w")
-endfunction
-
-command! -nargs=1 StartifyAddBookmark call <sid>sy_add_bookmark(<q-args>)

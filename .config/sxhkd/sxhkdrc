@@ -100,7 +100,10 @@ super + z
     zathura
 
 super + g
-    firefox-developer-edition 
+    firefox-developer-edition
+
+super + e
+    $HOME/.local/bin/zafer/emoji-selector
 
 # MEDIA CONTROLS
 # Raise lower volume

@@ -1,4 +1,5 @@
 {
+  "java.home": "/usr/lib/jvm/java-8-openjdk",
   // "coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "js", "html", "json"],
   // suggestions
   // "suggest.echodocSupport": true,
@@ -31,7 +32,7 @@
   "snippets.ultisnips.directories": ["UltiSnips", "~/.config/nvim/utils/snips"],
 
   // explorer
-  "explorer.width": 35,
+  "explorer.width": 30,
   "explorer.icon.enableNerdfont": true,
   "explorer.previewAction.onHover": false,
   "explorer.icon.enableVimDevicons": false,
@@ -41,12 +42,8 @@
     "h": "open:split"
   },
 
-  "languageserver": {
-    "bash": {
-      "command": "bash-language-server",
-      "args": ["start"],
-      "filetypes": ["sh"],
-      "ignoredRootPaths": ["~"]
-    }
-  }
+  "prettier.tabWidth": 4,
+  "prettier.singleQuote": true,
+  "prettier.semi": true,
+  "prettier.trailingComma": "es5"
 }
