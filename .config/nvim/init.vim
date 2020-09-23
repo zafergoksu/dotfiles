@@ -1,7 +1,11 @@
 call plug#begin('~/.config/nvim/bundle')
-Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdcommenter'
 Plug 'pangloss/vim-javascript'
+
+" Go support
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " JSX and TSX support
 Plug 'leafgarland/typescript-vim'
@@ -14,7 +18,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'chriskempson/base16-vim'
 
 " GUI enhancements
-"Plug 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim'
 "Plug 'mengelbrecht/lightline-bufferline'
 Plug 'machakann/vim-highlightedyank'
 Plug 'andymass/vim-matchup'
@@ -38,6 +42,12 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'Asheq/close-buffers.vim'
+
+" TOML syntax highlighting.
+Plug 'cespare/vim-toml' 
+
+" rust
+Plug 'rust-lang/rust.vim'
 
 " call PlugInstall to install new plugins
 call plug#end()
@@ -63,19 +73,27 @@ syntax on
 set termguicolors
 set bg=dark
 let base16colorspace=256
+"colorscheme gruvbox
 colorscheme base16-gruvbox-dark-hard
 "colorscheme nord
 
 " colorscheme onedark
 
 " Brighter comments
-call Base16hi("Comment", g:base16_gui09, "", g:base16_cterm09, "", "", "")
+"call Base16hi("Comment", g:base16_gui09, "", g:base16_cterm09, "", "", "")
 
 " preferences
 " inoremap fd <ESC>
 let mapleader = "\<Space>"
+imap fd <Esc>
 set pastetoggle=<F2>
 set mouse=a
+set autoindent
+set smartindent
+
+filetype on
+filetype plugin on
+filetype indent on
 
 "nmap <C-n> :NERDTreeToggle<CR>
 vmap ++ <plug>NERDCommenterToggle
@@ -84,21 +102,21 @@ nmap ++ <plug>NERDCommenterToggle
 " set filetypes as typescript.tsx
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
-let g:NERDTreeGitStatusWithFlags = 1
-" let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-" let g:NERDTreeGitStatusNodeColorization = 1
-let g:NERDTreeColorMapCustom = {
-    \ "Staged"    : "#0ee375",  
-    \ "Modified"  : "#d9bf91",  
-    \ "Renamed"   : "#51C9FC",  
-    \ "Untracked" : "#FCE77C",  
-    \ "Unmerged"  : "#FC51E6",  
-    \ "Dirty"     : "#FFBD61",  
-    \ "Clean"     : "#87939A",   
-    \ "Ignored"   : "#808080",
-    \ }
+"let g:NERDTreeGitStatusWithFlags = 1
+"" let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+"" let g:NERDTreeGitStatusNodeColorization = 1
+"let g:NERDTreeColorMapCustom = {
+    "\ "Staged"    : "#0ee375",  
+    "\ "Modified"  : "#d9bf91",  
+    "\ "Renamed"   : "#51C9FC",  
+    "\ "Untracked" : "#FCE77C",  
+    "\ "Unmerged"  : "#FC51E6",  
+    "\ "Dirty"     : "#FFBD61",  
+    "\ "Clean"     : "#87939A",   
+    "\ "Ignored"   : "#808080",
+    "\ }
 
-let g:NERDTreeIgnore = ['^node_modules$']
+"let g:NERDTreeIgnore = ['^node_modules$']
 
 " vim-prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -174,6 +192,7 @@ nmap <leader>gy <Plug>(coc-type-definition)
 nmap <leader>gi <Plug>(coc-implementation)
 nmap <leader>gr <Plug>(coc-references)
 nmap <leader>rr <Plug>(coc-rename)
+" Use `[g` and `]g` to navigate diagnostics
 nmap <leader>g[ <Plug>(coc-diagnostic-prev)
 nmap <leader>g] <Plug>(coc-diagnostic-next)
 nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
@@ -181,6 +200,7 @@ nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
 nnoremap <leader>cr :CocRestart
 
 nnoremap <C-p> :GFiles<CR>
+nnoremap <leader><leader>b :Buffers<CR>
 
 " Explorer
 nmap <leader>e :CocCommand explorer<CR>
@@ -220,10 +240,6 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Or use `complete_info` if your vim support it, like:
 " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -246,72 +262,64 @@ xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 " air-line
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#whitespace#mixed_indent_algo = 1
+"let g:airline_powerline_fonts = 1
+"let g:airline#extensions#whitespace#mixed_indent_algo = 1
 
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
+"if !exists('g:airline_symbols')
+    "let g:airline_symbols = {}
+"endif
 
-" unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
+ "unicode symbols
+"let g:airline_left_sep = '»'
+"let g:airline_left_sep = '▶'
+"let g:airline_right_sep = '«'
+"let g:airline_right_sep = '◀'
+"let g:airline_symbols.linenr = '␊'
+"let g:airline_symbols.linenr = '␤'
+"let g:airline_symbols.linenr = '¶'
+"let g:airline_symbols.branch = '⎇'
+"let g:airline_symbols.paste = 'ρ'
+"let g:airline_symbols.paste = 'Þ'
+"let g:airline_symbols.paste = '∥'
+"let g:airline_symbols.whitespace = 'Ξ'
 
-" airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
+ "airline symbols
+"let g:airline_left_sep = ''
+"let g:airline_left_alt_sep = ''
+"let g:airline_right_sep = ''
+"let g:airline_right_alt_sep = ''
+"let g:airline_symbols.branch = ''
+"let g:airline_symbols.readonly = ''
+"let g:airline_symbols.linenr = ''
 
 " Lightline
-"let g:lightline = {
-      "\ 'colorscheme': 'gruvbox',
-      "\ 'active': {
-      "\   'left': [ [ 'mode', 'paste' ],
-      "\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-      "\ },
-      "\ 'component_expand': {
-      "\   'buffers': 'lightline#bufferline#buffers'
-      "\ },
-      "\ 'component_type': {
-      "\   'buffers': 'tabsel'
-      "\ },
-      "\ 'component_function': {
-      "\   'filename': 'LightlineFilename',
-      "\   'cocstatus': 'coc#status'
-      "\ }
-      "\ }
-"function! LightlineFilename()
-  "return expand('%:t') !=# '' ? @% : '[No Name]'
-"endfunction
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_expand': {
+      \   'buffers': 'lightline#bufferline#buffers'
+      \ },
+      \ 'component_type': {
+      \   'buffers': 'tabsel'
+      \ },
+      \ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \   'cocstatus': 'coc#status'
+      \ }
+      \ }
+function! LightlineFilename()
+  return expand('%:t') !=# '' ? @% : '[No Name]'
+endfunction
 
 "" Use auocmd to force lightline update.
 "autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
-"let g:lightline.colorscheme = 'gruvbox'
-
 " Use auocmd to force lightline update.
 "autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
-set autoindent
-set smartindent
-
-filetype on
-filetype plugin on
-filetype indent on
 
 " coc config
 let g:coc_global_extensions = [
