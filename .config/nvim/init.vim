@@ -2,20 +2,23 @@ call plug#begin('~/.config/nvim/bundle')
 "Plug 'vim-airline/vim-airline'
 "Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdcommenter'
-Plug 'pangloss/vim-javascript'
+
+Plug 'tpope/vim-surround'
 
 " Go support
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-" JSX and TSX support
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'ianks/vim-tsx'
+Plug 'pangloss/vim-javascript'    " JavaScript support
+"Plug 'leafgarland/typescript-vim' " TypeScript syntax
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
+Plug 'jparise/vim-graphql'        " GraphQL syntax
 
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'chriskempson/base16-vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 " GUI enhancements
 Plug 'itchyny/lightline.vim'
@@ -37,10 +40,9 @@ Plug 'tpope/vim-fugitive' " git tool
 
 " Fuzzy finder
 "Plug 'airblade/vim-rooter'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'jiangmiao/auto-pairs'
 Plug 'Asheq/close-buffers.vim'
 
 " TOML syntax highlighting.
@@ -48,6 +50,11 @@ Plug 'cespare/vim-toml'
 
 " rust
 Plug 'rust-lang/rust.vim'
+
+"Plug 'jiangmiao/auto-pairs'
+
+" LaTeX
+Plug 'lervag/vimtex'
 
 " call PlugInstall to install new plugins
 call plug#end()
@@ -70,14 +77,16 @@ set notimeout
 " Syntax enable
 "let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 syntax on
+
+" themes
 set termguicolors
 set bg=dark
 let base16colorspace=256
 "colorscheme gruvbox
 colorscheme base16-gruvbox-dark-hard
 "colorscheme nord
-
-" colorscheme onedark
+"colorscheme onedark
+"colorscheme dracula
 
 " Brighter comments
 "call Base16hi("Comment", g:base16_gui09, "", g:base16_cterm09, "", "", "")
@@ -204,7 +213,7 @@ nnoremap <leader><leader>b :Buffers<CR>
 
 " Explorer
 nmap <leader>e :CocCommand explorer<CR>
-"autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 nnoremap <leader>> <C-W>>
 nnoremap <leader>< <C-W><
@@ -333,5 +342,11 @@ let g:coc_global_extensions = [
   \ 'coc-python',
   \ 'coc-java',
   \ 'coc-explorer',
+  \ 'coc-rust-analyzer',
+  \ 'coc-clangd',
   \ ]
 " from readme
+
+let g:javascript_plugin_jsdoc = 1
+
+let g:tex_flavor = 'latex'
