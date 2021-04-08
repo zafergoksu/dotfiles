@@ -78,15 +78,11 @@ window:
   # Override the variant of the GTK theme. Commonly supported values are `dark` and `light`.
   # Set this to `None` to use the default theme variant.
   #gtk_theme_variant: None
-
+  
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
-  history: 10000
-
-  # Number of lines the viewport will move for every line scrolled when
-  # scrollback is enabled (history > 0).
-  #multiplier: 3
+  history: 80000
 
 # Font configuration
 font:
@@ -98,8 +94,8 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    #family: "Noto Sans Mono"
-    family: "Hack"
+    #family: "Hack"
+    family: "Noto Sans Mono"
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
@@ -138,7 +134,7 @@ font:
     #style: Bold Italic
 
   # Point size
-  size: 12.0
+  size: 14.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -172,22 +168,53 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
 
-# Base16 Gruvbox dark, hard 256 - alacritty color config
-# Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+ #Colors (Base16 Default Dark)
+#colors:
+   #Default colors
+  #primary:
+    #background: '0x181818'
+    #foreground: '0xd8d8d8'
+
+   #Colors the cursor will use if `custom_cursor_colors` is true
+  #cursor:
+    #text: '0xd8d8d8'
+    #cursor: '0xd8d8d8'
+
+   #Normal colors
+  #normal:
+    #black:   '0x181818'
+    #red:     '0xab4642'
+    #green:   '0xa1b56c'
+    #yellow:  '0xf7ca88'
+    #blue:    '0x7cafc2'
+    #magenta: '0xba8baf'
+    #cyan:    '0x86c1b9'
+    #white:   '0xd8d8d8'
+
+   #Bright colors
+  #bright:
+    #black:   '0x585858'
+    #red:     '0xab4642'
+    #green:   '0xa1b56c'
+    #yellow:  '0xf7ca88'
+    #blue:    '0x7cafc2'
+    #magenta: '0xba8baf'
+    #cyan:    '0x86c1b9'
+    #white:   '0xf8f8f8'
+ #Base16 Gruvbox dark, hard 256 - alacritty color config
+ #Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
 colors:
-# Base16 Gruvbox dark, hard 256 - alacritty color config
-# Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
-  # Default colors
+   #Default colors
   primary:
     background: '0x1d2021'
     foreground: '0xd5c4a1'
 
-  # Colors the cursor will use if `custom_cursor_colors` is true
+   #Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
     text: '0x1d2021'
     cursor: '0xd5c4a1'
 
-  # Normal colors
+   #Normal colors
   normal:
     black:   '0x1d2021'
     red:     '0xfb4934'
@@ -198,7 +225,7 @@ colors:
     cyan:    '0x8ec07c'
     white:   '0xd5c4a1'
 
-  # Bright colors
+   #Bright colors
   bright:
     black:   '0x665c54'
     red:     '0xfb4934'
