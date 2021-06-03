@@ -8,7 +8,6 @@ set number relativenumber
 set ruler
 set wildmenu
 set showcmd
-set showmatch
 
 " encoding
 set encoding=utf-8
@@ -37,8 +36,9 @@ filetype plugin indent on
 
 " themes
 set termguicolors
-set bg=dark
-colorscheme base16-gruvbox-dark-hard
+"set bg=dark
+"colorscheme base16-gruvbox-dark-hard
+colorscheme nord
 
 " shortcuts
 let mapleader = "\<Space>"

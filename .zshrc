@@ -1,18 +1,18 @@
 # If you come from bash you might have to change your $PATH.
-export PATH="$PATH:$HOME/.local/bin/zafer:$HOME/.gem/ruby/2.7.0/bin"
+export PATH="$PATH:$HOME/.local/bin/zafer:$HOME/.gem/ruby/2.7.0/bin:$HOME/.cargo/bin:/opt/anaconda/bin"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/zafer/.oh-my-zsh"
 
 export TERM="xterm-256color"
 
-export FZF_DEFAULT_COMMAND='ag -g ""'
-
+export FZF_DEFAULT_COMMAND='ag --ignore node_modules -g ""'
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+#ZSH_THEME="spaceship"
 ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
@@ -73,6 +73,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+#plugins=(git zsh-autosuggestions)
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
@@ -105,8 +106,14 @@ export LANG=en_US.UTF-8
 
 export PATH=$HOME/.local/bin/zafer:$PATH
 
-export MOZ_X11_EGL=1
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 alias git-root='cd $(git rev-parse --show-cdup)'
+
+#ZSH_AUTOSUGGEST_STRATEGY=(completion history)
+
+# >>> conda initialize >>>
+. "/opt/anaconda/etc/profile.d/conda.sh"
+# <<< conda initialize <<<
+
+fpath=($fpath "/home/zafer/.zfunctions")

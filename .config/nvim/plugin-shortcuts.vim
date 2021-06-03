@@ -25,7 +25,7 @@ function! s:list_cmd()
   return base == '.' ? 'fd --type file --follow' : printf('fd --type file --follow | proximity-sort %s', shellescape(expand('%')))
 endfunction
 
-let $FZF_DEFAULT_COMMAND = 'ag --ignore node_modules --ignore target -l -g ""'
+let $FZF_DEFAULT_COMMAND = 'ag -l --hidden --ignore ".git/"'
 let $FZF_DEFAULT_OPTS="--preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file || (bat --style=numbers --color=always {} || highlight -O ansi -l {} || coderay {} || rougify {} || cat {}) 2> /dev/null'"
 let g:fzf_layout = { 'down': '40%' }
 let g:fzf_nvim_statusline = 0
@@ -100,7 +100,7 @@ nmap <leader>f  <Plug>(coc-format-selected)
 
 " Lightline
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
+      \ 'colorscheme': 'nord',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
@@ -122,18 +122,26 @@ endfunction
 
 " coc config
 let g:coc_global_extensions = [
-  \ 'coc-snippets',
-  \ 'coc-html',
-  \ 'coc-css',
-  \ 'coc-tsserver',
-  \ 'coc-eslint', 
-  \ 'coc-prettier', 
-  \ 'coc-json', 
-  \ 'coc-python',
-  \ 'coc-java',
-  \ 'coc-explorer',
-  \ 'coc-rust-analyzer',
   \ 'coc-clangd',
+  \ 'coc-css',
+  \ 'coc-emmet',
+  \ 'coc-eslint',
+  \ 'coc-explorer',
+  \ 'coc-go',
+  \ 'coc-html',
+  \ 'coc-java',
+  \ 'coc-json',
+  \ 'coc-marketplace',
+  \ 'coc-omnisharp',
+  \ 'coc-prettier', 
+  \ 'coc-python',
+  \ 'coc-rust-analyzer',
+  \ 'coc-snippets',
+  \ 'coc-sql',
+  \ 'coc-svelte',
+  \ 'coc-toml',
+  \ 'coc-tsserver',
+  \ 'coc-vimtex',
   \ ]
 " from readme
 
