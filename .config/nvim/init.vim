@@ -1,5 +1,5 @@
 " external configs
-source $HOME/.config/nvim/plugins.vim
+source $HOME/.config/nvim/plug.vim
 
 " regular settings
 " ----------------
@@ -14,7 +14,7 @@ set encoding=utf-8
 set fileformats=unix,dos,mac
 
 " searching
-set hlsearch
+set nohlsearch
 set incsearch
 set ignorecase
 set smartcase
@@ -24,6 +24,7 @@ set shiftwidth=4
 set tabstop=4
 set softtabstop=4
 set autoindent
+set expandtab
 
 " key timeout values
 " set esckeys	
@@ -42,7 +43,9 @@ colorscheme nord
 
 " shortcuts
 let mapleader = "\<Space>"
-imap fd <Esc>
+inoremap fd <Esc>
+inoremap jj <Esc>
+inoremap kk <Esc>
 set mouse=a
 nnoremap <leader>> <C-W>>
 nnoremap <leader>< <C-W><
@@ -78,18 +81,18 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " copy to clipboard
-map <Leader>y "+y
-map <Leader>p "+p
+map <leader>y "+y
+map <leader>p "+p
 
-source $HOME/.config/nvim/plugin-shortcuts.vim
+" source $HOME/.config/nvim/plugin-shortcuts.vim
 
 " autocmds
 "---------
-augroup general
-    autocmd!
-    "keep equal proportions when windows resized
-    autocmd VimResized * wincmd =
-    "save cursor position in a file
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"")
-                \ <= line("$") | exe "normal! g'\"" | endif
-augroup END
+" augroup general
+"     autocmd!
+"     "keep equal proportions when windows resized
+"     autocmd VimResized * wincmd =
+"     "save cursor position in a file
+"     autocmd BufReadPost * if line("'\"") > 1 && line("'\"")
+"                 \ <= line("$") | exe "normal! g'\"" | endif
+" augroup END
