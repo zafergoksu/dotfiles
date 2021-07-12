@@ -6,15 +6,17 @@ Plug 'tpope/vim-surround'
 Plug 'cohama/lexima.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'machakann/vim-highlightedyank'
+Plug 'itchyny/lightline.vim'
 
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
+Plug 'cocopon/iceberg.vim'
 
 if has("nvim")
     Plug 'kristijanhusak/defx-git'
     Plug 'kristijanhusak/defx-icons'
     Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-
+    
     Plug 'neovim/nvim-lspconfig'
     Plug 'kabouzeid/nvim-lspinstall'
     Plug 'glepnir/lspsaga.nvim'
@@ -28,7 +30,7 @@ if has("nvim")
     Plug 'nvim-telescope/telescope.nvim'
     
     Plug 'kyazdani42/nvim-web-devicons'
-	" Plug 'hoob3rt/lualine.nvim'
+    " Plug 'hoob3rt/lualine.nvim'
 endif
 
 " call PlugInstall to install new plugins
@@ -36,3 +38,14 @@ call plug#end()
 
 vmap ++ <plug>NERDCommenterToggle
 nmap ++ <plug>NERDCommenterToggle
+
+let g:lightline = {
+    \ 'colorscheme': 'iceberg',
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \               ['gitbranch', 'readonly', 'filename', 'modified'] ]
+    \ },
+    \ 'component_function': {
+    \   'gitbranch': 'FugitiveHead'
+    \ },
+    \ }

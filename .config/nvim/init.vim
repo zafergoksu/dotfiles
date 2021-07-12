@@ -39,7 +39,8 @@ filetype plugin indent on
 set termguicolors
 "set bg=dark
 "colorscheme base16-gruvbox-dark-hard
-colorscheme nord
+"colorscheme nord
+colorscheme iceberg
 
 " shortcuts
 let mapleader = "\<Space>"
@@ -83,16 +84,3 @@ nnoremap <C-H> <C-W><C-H>
 " copy to clipboard
 map <leader>y "+y
 map <leader>p "+p
-
-" source $HOME/.config/nvim/plugin-shortcuts.vim
-
-" autocmds
-"---------
-" augroup general
-"     autocmd!
-"     "keep equal proportions when windows resized
-"     autocmd VimResized * wincmd =
-"     "save cursor position in a file
-"     autocmd BufReadPost * if line("'\"") > 1 && line("'\"")
-"                 \ <= line("$") | exe "normal! g'\"" | endif
-" augroup END
