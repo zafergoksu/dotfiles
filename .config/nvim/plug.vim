@@ -12,6 +12,21 @@ Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
 Plug 'cocopon/iceberg.vim'
 
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+
+Plug 'Asheq/close-buffers.vim'
+
+" TOML syntax highlighting.
+Plug 'cespare/vim-toml' 
+
+" rust
+Plug 'rust-lang/rust.vim'
+
+" LaTeX
+Plug 'lervag/vimtex'
+
 if has("nvim")
     Plug 'kristijanhusak/defx-git'
     Plug 'kristijanhusak/defx-icons'

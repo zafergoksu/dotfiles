@@ -44,9 +44,8 @@ colorscheme iceberg
 
 " shortcuts
 let mapleader = "\<Space>"
-inoremap fd <Esc>
+"inoremap fd <Esc>
 inoremap jj <Esc>
-inoremap kk <Esc>
 set mouse=a
 nnoremap <leader>> <C-W>>
 nnoremap <leader>< <C-W><

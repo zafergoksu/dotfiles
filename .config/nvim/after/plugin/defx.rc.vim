@@ -54,9 +54,12 @@ function! s:defx_keymaps() abort
   nnoremap <silent><buffer><expr> yy    defx#do_action('yank_path')
   nnoremap <silent><buffer><expr> ~     defx#do_action('cd')
   nnoremap <silent><buffer><expr><nowait> \  defx#do_action('cd', getcwd())
-  nnoremap <silent><buffer><expr> h     defx#do_action('cd', ['..'])
+  "nnoremap <silent><buffer><expr> h     defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> <BS>     defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> h     defx#do_action('close_tree')
 
-  nnoremap <silent><buffer><expr><nowait> <Space> defx#do_action('toggle_select') . 'j'
+  "nnoremap <silent><buffer><expr><nowait> <Space> defx#do_action('toggle_select') . 'j'
+  nnoremap <silent><buffer><expr><nowait> s defx#do_action('toggle_select') . 'j'
   nnoremap <silent><buffer><expr> *      defx#do_action('toggle_select_all')
   nnoremap <silent><buffer><expr> <C-c>  defx#do_action('clear_select_all')
   nnoremap <silent><buffer><expr> <C-r>  defx#do_action('redraw')

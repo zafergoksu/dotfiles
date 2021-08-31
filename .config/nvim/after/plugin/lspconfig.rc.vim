@@ -26,7 +26,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    --buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
     --buf_set_keymap('n', '<C-j>', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', '<S-C-j>', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<space>x', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
@@ -79,8 +79,12 @@ local servers = {	"gopls",
 					"dockerls",
 					"pyright",
                     "graphql",
-                    "sqls"
 }
+
+nvim_lsp.flow.setup {
+  on_attach = on_attach
+}
+
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -89,6 +93,11 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+
+nvim_lsp.tsserver.setup {
+    on_attach = on_attach,
+    filetypes = { "typescript", "typescriptreact", "typescript.tsx" }
+}
 
 nvim_lsp.diagnosticls.setup {
   on_attach = on_attach,
@@ -134,16 +143,16 @@ nvim_lsp.diagnosticls.setup {
       }
     },
     formatFiletypes = {
-      css = 'prettier',
-      javascript = 'eslint_d',
-      javascriptreact = 'eslint_d',
-      json = 'prettier',
-      scss = 'prettier',
-      less = 'prettier',
-      typescript = 'eslint_d',
-      typescriptreact = 'eslint_d',
-      json = 'prettier',
-      markdown = 'prettier',
+        css = 'prettier',
+        javascript = 'prettier',
+        javascriptreact = 'prettier',
+        json = 'prettier',
+        scss = 'prettier',
+        less = 'prettier',
+        typescript = 'prettier',
+        typescriptreact = 'prettier',
+        json = 'prettier',
+        markdown = 'prettier',
     }
   }
 }
