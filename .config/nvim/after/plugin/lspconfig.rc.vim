@@ -5,6 +5,8 @@ endif
 lua << EOF
 local nvim_lsp = require('lspconfig')
 local protocol = require('vim.lsp.protocol')
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
 
 local on_attach = function(client, bufnr)
 	local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -41,6 +43,7 @@ local on_attach = function(client, bufnr)
     end
 
 	require 'completion'.on_attach(client, bufnr)
+    lsp_status.on_attach(client, bufnr)
 
 	  --protocol.SymbolKind = { }
     -- protocol.CompletionItemKind = {
@@ -98,6 +101,25 @@ nvim_lsp.tsserver.setup {
     on_attach = on_attach,
     filetypes = { "typescript", "typescriptreact", "typescript.tsx" }
 }
+
+nvim_lsp.rust_analyzer.setup({
+    on_attach = on_attach,
+    capabilities = lsp_status.capabilities,
+    settings = {
+        ["rust-analyzer"] = {
+            assist = {
+                importGranularity = "module",
+                importPrefix = "by_self",
+            },
+            cargo = {
+                loadOutDirsFromCheck = true
+            },
+            procMacro = {
+                enable = true
+            },
+        }
+    }
+})
 
 nvim_lsp.diagnosticls.setup {
   on_attach = on_attach,
@@ -168,4 +190,10 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     }
   }
 )
+
 EOF
+
+set signcolumn=yes
+
+autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
+\ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }

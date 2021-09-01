@@ -6,10 +6,9 @@ Plug 'tpope/vim-surround'
 Plug 'cohama/lexima.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'machakann/vim-highlightedyank'
-Plug 'itchyny/lightline.vim'
 
-Plug 'morhetz/gruvbox'
-Plug 'arcticicestudio/nord-vim'
+"Plug 'morhetz/gruvbox'
+"Plug 'arcticicestudio/nord-vim'
 Plug 'cocopon/iceberg.vim'
 
 Plug 'prettier/vim-prettier', {
@@ -37,30 +36,17 @@ if has("nvim")
     Plug 'glepnir/lspsaga.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+    Plug 'nvim-lua/lsp_extensions.nvim'
     Plug 'nvim-lua/completion-nvim'
     Plug 'folke/lsp-colors.nvim'
     
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
-    
+    Plug 'nvim-lua/lsp-status.nvim' 
     Plug 'kyazdani42/nvim-web-devicons'
-    " Plug 'hoob3rt/lualine.nvim'
+    Plug 'hoob3rt/lualine.nvim'
 endif
 
 " call PlugInstall to install new plugins
 call plug#end()
-
-vmap ++ <plug>NERDCommenterToggle
-nmap ++ <plug>NERDCommenterToggle
-
-let g:lightline = {
-    \ 'colorscheme': 'iceberg',
-    \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \               ['gitbranch', 'readonly', 'filename', 'modified'] ]
-    \ },
-    \ 'component_function': {
-    \   'gitbranch': 'FugitiveHead'
-    \ },
-    \ }

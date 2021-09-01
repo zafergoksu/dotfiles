@@ -83,3 +83,9 @@ nnoremap <C-H> <C-W><C-H>
 " copy to clipboard
 map <leader>y "+y
 map <leader>p "+p
+
+vmap ++ <plug>NERDCommenterToggle
+nmap ++ <plug>NERDCommenterToggle
+
+autocmd WinLeave * setlocal statusline=%!v:lua.require'lualine'.statusline() 
+autocmd WinEnter * setlocal statusline=%!v:lua.require'lualine'.statusline()
