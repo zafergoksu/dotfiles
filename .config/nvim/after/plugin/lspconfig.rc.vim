@@ -42,7 +42,9 @@ local on_attach = function(client, bufnr)
         vim.api.nvim_command [[augroup END]]
     end
 
-	require 'completion'.on_attach(client, bufnr)
+    -- require 'completion'.on_attach(client, bufnr)
+
+    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
     lsp_status.on_attach(client, bufnr)
 
 	  --protocol.SymbolKind = { }
