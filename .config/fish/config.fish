@@ -26,6 +26,9 @@ set -gx PATH ~/bin $PATH
 set -gx PATH ~/.local/bin $PATH
 set -gx PATH ~/.local/bin/zafer $PATH
 
+# Cargo
+set -gx PATH ~/.cargo/bin $PATH
+
 # NodeJS
 set -gx PATH node_modules/.bin $PATH
 
