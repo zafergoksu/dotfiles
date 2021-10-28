@@ -11,10 +11,6 @@ Plug 'machakann/vim-highlightedyank'
 "Plug 'arcticicestudio/nord-vim'
 Plug 'cocopon/iceberg.vim'
 
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
-
 Plug 'Asheq/close-buffers.vim'
 
 " TOML syntax highlighting.
@@ -25,6 +21,12 @@ Plug 'rust-lang/rust.vim'
 
 " LaTeX
 Plug 'lervag/vimtex'
+
+" jsx
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'jparise/vim-graphql'
 
 if has("nvim")
     Plug 'kristijanhusak/defx-git'
