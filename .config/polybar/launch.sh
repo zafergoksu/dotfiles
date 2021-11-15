@@ -6,7 +6,12 @@ killall -q polybar
 # Wait until the processes have been shut down
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
-# Launch polybar
-polybar main -c $HOME/.config/polybar/config.ini &
-polybar left -c $HOME/.config/polybar/config.ini &
-polybar right -c $HOME/.config/polybar/config.ini &
+# Get network Interface
+export DEFAULT_NETWORK_INTERFACE=$(ip route | grep '^default' | awk '{print $5}' | head -n1)
+
+polybar -c ~/.config/polybar/config.ini main &
+
+external_monitor=$(xrandr --query | grep 'HDMI-0')
+if [[ $external_monitor = HDMI-0\ connected* ]]; then
+    polybar -c ~/.config/polybar/config.ini secondary &
+fi

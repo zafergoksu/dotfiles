@@ -1,115 +1,113 @@
 # WM INDEPENDENT KEYBINDINGS
 
 # make sxhkd reload its configuration files:
-super + Escape
+alt + Escape
 	pkill -USR1 -x sxhkd
 
 
 # BSPWM HOTKEYS
 
 # quit/restart bspwm
-# super + shift + {q,r}
+# alt + shift + {q,r}
 # 	bspc {quit,wm -r}
 
 # close and kill
-super + shift + {q,r}
+alt + shift + {q,r}
 	bspc {node -c, wm -r}
 
 # alternate between the tiled and monocle layout
-super + m
+alt + m
 	bspc desktop -l next
 
 # send the newest marked node to the newest preselected node
-super + y
+alt + y
 	bspc node newest.marked.local -n newest.!automatic.local
 
  #swap the current node and the biggest node
-#super + g
+#alt + g
     #bspc node -s biggest
 
 
 # STATE/FLAGS
 
 # set the window state
-super + {t,shift + t,s,f}
+alt + {t,shift + t,s,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 # set the node flags
-super + ctrl + {m,x,y,z}
+alt + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
 
 # FOCUS/SWAP
 
 # focus the node in the given direction
-super + {_,shift + }{h,j,k,l}
+alt + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
 
 # focus the node for the given path jump
-super + {p,b,comma,period}
+alt + {p,b,comma,period}
 	bspc node -f @{parent,brother,first,second}
 
 # focus the next/previous node in the current desktop
-super + {_,shift + }n
+alt + {_,shift + }n
 	bspc node -f {next,prev}.local
 
 # focus the next/previous desktop in the current monitor
-super + bracket{left,right}
+alt + bracket{left,right}
 	bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
-super + {grave,Tab}
+alt + {grave,Tab}
 	bspc {node,desktop} -f last
 
 # focus the older or newer node in the focus history
-super + {o,i}
+alt + {o,i}
 	bspc wm -h off; \
 	bspc node {older,newer} -f; \
 	bspc wm -h on
 
 # focus or send to the given desktop
-super + {_,shift + }{1-9,0}
+alt + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '{1-9,10}'
 
-super + alt + {h,j,k,l}
-    $HOME/.local/bin/zafer/bspwm_resize expand {west,south,north,east} 50
-
-super + alt + shift + {h,j,k,l}
-    $HOME/.local/bin/zafer/bspwm_resize contract {west,south,north,east} 50
-
-super + alt + w
-    bspc node @/ -E
-
 # APPLICATIONS
-super + Return
-    termite
+alt + Return
+    alacritty
 
-#super + d
-    #rofi -show run
+alt + d
+   rofi -show drun -theme iconic -show-icons
 
-super + d
-    sh $HOME/.config/polybar/scripts/menu
-
-super + shift + s
-    sh $HOME/.config/polybar/scripts/sysmenu
-
-super + shift + x
-    betterlockscreen -l dim
-
-super + z
+alt + z
     zathura
 
-super + g
-    firefox-developer-edition
+alt + g
+    firefox
 
-super + e
-    $HOME/.local/bin/zafer/emoji-selector
+alt + e
+    thunar $HOME
 
-# MEDIA CONTROLS
-# Raise lower volume
-XF86Audio{LowerVolume,RaiseVolume}
-    amixer sset 'Master' 1%{-,+}
+alt + shift + e
+    $HOME/.local/bin/zafer/rofi-emoji
 
-# Track controls for player
-XF86Audio{Play,Next,Prev}
-    playerctl {play-pause,next,previous}
+###################################
+########### System Keys ###########
+###################################
+
+#Volume Control
+XF86AudioLowerVolume
+	pamixer -u && pamixer -d 5
+XF86AudioRaiseVolume
+	pamixer -u && pamixer -i 5
+XF86AudioMute
+	pamixer -t
+
+#Brightness control
+XF86MonBrightnessDown
+	brightness -dec 5
+XF86MonBrightnessUp
+	brightness -inc 5
+
+## Lock screen
+alt + shift + l
+	lock.sh
