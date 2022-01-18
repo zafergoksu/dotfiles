@@ -23,6 +23,9 @@ npairs.setup {
     highlight = "PmenuSel",
     highlight_grey = "LineNr",
   },
+  autotag = {
+      enable = true,
+  }
 }
 
 local cmp_autopairs = require "nvim-autopairs.completion.cmp"
