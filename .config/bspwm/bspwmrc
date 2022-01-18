@@ -1,9 +1,8 @@
 #! /bin/sh
 
-killall -9 sxhkd dunst picom nm-applet blueman-applet flameshot polybar mopidy mullvad-vpn
+killall -9 sxhkd dunst picom nm-applet blueman-applet flameshot polybar mullvad-vpn
 
-feh --bg-fill ~/Pictures/Backgrounds/Moon.jpg &
-mopidy &
+feh --bg-fill ~/Pictures/Backgrounds/deskmatfinal.png &
 sxhkd &
 $HOME/.config/polybar/launch.sh &
 # xfce4-power-manager &
@@ -17,30 +16,49 @@ mullvad-vpn &
 xsetroot -cursor_name left_ptr &
 xset r rate 200 30 &
 
-# Code, Browser, music, games, social, media, files
-bspc monitor DP-4 -d 1 4 5
-bspc monitor HDMI-0 -d 2 6 7
-bspc monitor DP-2 -d 3 8 9
+#### MONITORS ####
+bspc monitor -d 1 2 3 4 5 6 7 8 9
 
-bspc config border_width         1
-bspc config window_gap          12
+external_monitor=$(xrandr --query | grep 'HDMI-0')
+vertical_monitor=$(xrandr --query | grep 'DP-0')
 
-bspc config split_ratio          0.52
-bspc config focus_follows_pointer true
-bspc config borderless_monocle   true
-bspc config gapless_monocle      true
-bspc config pointer_mod mod4
+if [[ $external_monitor = HDMI-0\ connected* && $vertical_monitor = DP-0\ connected* ]]; then
+	bspc monitor DP-2 -d 1 2 3 4
+	bspc monitor HDMI-0 -d 5 6 7
+    bspc monitor DP-0 -d 8 9
+elif [[ $external_monitor = HDMI-0\ connected* ]]; then
+	bspc monitor DP-2 -d 1 2 3 4 5 6
+	bspc monitor HDMI-0 -d 7 8 9
+else
+	bspc monitor DP-2 -d 1 2 3 4 5 6 7 8 9
+fi
+
+bspc config border_width                        2
+bspc config window_gap                          8 
+
+bspc config top_padding                         32
+bspc config split_ratio                         0.5
+bspc config focus_follows_pointer               true
+bspc config borderless_monocle                  true
+bspc config gapless_monocle                     true
+bspc config pointer_modifier mod1
 bspc config pointer_action1 move
 
-bspc config normal_border_color     "#19191C"
-bspc config focused_border_color     "#FFFFFF"
+# Colors
+bspc config active_border_color "#474f54"
+bspc config focused_border_color "#ffffff"
+bspc config normal_border_color "#373d41"
+bspc config presel_feedback_color "#373d41"
 
-bspc rule -a Termite                            desktop='1'                 follow=on
-bspc rule -a firefox                            desktop='2'                 follow=on
-bspc rule -a firefoxdeveloperedition            desktop='2'                 follow=on
-bspc rule -a Steam                              desktop='4'
-bspc rule -a discord                            desktop='5'                 follow=on
-bspc rule -a Lutris                             desktop='4'                 follow=on
-bspc rule -a Thunar                             desktop='7'                 follow=on
-bspc rule -a minecraft-launcher                 desktop='4'                 follow=on
-bspc rule -a Zathura                            desktop='8'                 follow=on           state=tiled
+# Rules
+bspc rule -a Alacritty                          desktop='1'     follow=on
+bspc rule -a firefox                            desktop='2'     follow=on
+bspc rule -a Chromium                           desktop='2'     follow=on
+bspc rule -a spotify                            desktop='3'     follow=on
+bspc rule -a Steam                              desktop='4'     
+bspc rule -a discord                            desktop='5'     
+bspc rule -a Lutris                             desktop='4'     follow=on
+bspc rule -a mpv                                desktop='6'     follow=on
+bspc rule -a Thunar                             desktop='7'     follow=on
+bspc rule -a minecraft-launcher                 desktop='4'     follow=on
+bspc rule -a Zathura                            desktop='9'     follow=on       state=tiled

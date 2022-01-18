@@ -4,6 +4,8 @@
 alt + Escape
 	pkill -USR1 -x sxhkd
 
+alt + shift + [
+    $HOME/.config/polybar/launch.sh
 
 # BSPWM HOTKEYS
 
@@ -109,5 +111,10 @@ XF86MonBrightnessUp
 	brightness -inc 5
 
 ## Lock screen
-alt + shift + l
-	lock.sh
+alt + shift + x
+	betterlockscreen -l dim
+
+## System menu
+
+alt + shift + s
+    $HOME/.config/polybar/scripts/sysmenu
