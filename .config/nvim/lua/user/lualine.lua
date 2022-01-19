@@ -14,6 +14,7 @@ local diagnostics = {
 	symbols = { error = " ", warn = " " },
 	colored = false,
 	update_in_insert = false,
+    disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline" },
 	always_visible = true,
 }
 
