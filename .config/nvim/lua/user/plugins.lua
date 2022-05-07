@@ -67,9 +67,9 @@ return packer.startup(function(use)
     -- TokyoNight
     --use "folke/tokyonight.nvim"
     -- Gruvbox dark
-    -- use "morhetz/gruvbox"
+    use "morhetz/gruvbox"
     -- Github Themes
-    use "projekt0n/github-nvim-theme"
+    -- use "projekt0n/github-nvim-theme"
 
     -- Telescope
     use "nvim-telescope/telescope.nvim"
@@ -100,7 +100,7 @@ return packer.startup(function(use)
     -- LSP
     use "neovim/nvim-lspconfig" -- enable LSP
     -- use "williamboman/nvim-lsp-installer" -- simple to use language server installer
-    -- use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
+    use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
 
     -- Rust
     use "simrat39/rust-tools.nvim"

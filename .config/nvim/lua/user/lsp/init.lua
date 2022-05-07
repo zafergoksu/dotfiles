@@ -18,6 +18,20 @@ local function hover()
     end
 end
 
+local function lsp_format(client)
+    if client.resolved_capabilities.document_formatting then
+        vim.api.nvim_exec(
+            [[
+            augroup Format
+            autocmd! * <buffer>
+            autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()
+            augroup END
+        ]]   ,
+            false
+        )
+    end
+end
+
 local function make_on_attach(server_name)
     return function(client, bufnr)
         local function buf_set_keymap(...)
@@ -62,11 +76,11 @@ local function make_on_attach(server_name)
             buf_set_keymap("n", "gJ", "<cmd>RustJoinLines<CR>", opts)
         end
 
-        vim.api.nvim_exec([[
-        augroup lsp_formatting
-        autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)
-        augroup END
-        ]], false)
+        if server_name == "tsserver" then
+            client.resolved_capabilities.document_formatting = false
+        end
+
+        lsp_format(client)
     end
 end
 
@@ -178,73 +192,19 @@ local function setup_lsp()
                     enable = true
                 }
             },
-        }
+        },
     })
 
-    -- lspconfig.tsserver.setup({
-    --     on_attach = make_on_attach("tsserver"),
-    --     filetypes = { "typescript", "typescriptreact", "typescript.tsx" }
-    -- })
-
-    lspconfig.diagnosticls.setup {
-        on_attach = make_on_attach("diagnosticls"),
+    lspconfig.tsserver.setup({
+        on_attach = make_on_attach("tsserver"),
         capabilities = capabilities,
-        filetypes = { 'javascript', 'javascriptreact', 'json', 'typescript', 'typescriptreact', 'css', 'less', 'scss', 'markdown', 'pandoc' },
-        init_options = {
-            linters = {
-                eslint = {
-                    command = 'eslint_d',
-                    rootPatterns = { '.git' },
-                    debounce = 100,
-                    args = { '--stdin', '--stdin-filename', '%filepath', '--format', 'json' },
-                    sourceName = 'eslint_d',
-                    parseJson = {
-                        errorsRoot = '[0].messages',
-                        line = 'line',
-                        column = 'column',
-                        endLine = 'endLine',
-                        endColumn = 'endColumn',
-                        message = '[eslint] ${message} [${ruleId}]',
-                        security = 'severity'
-                    },
-                    securities = {
-                        [2] = 'error',
-                        [1] = 'warning'
-                    }
-                },
-            },
-            filetypes = {
-                javascript = 'eslint',
-                javascriptreact = 'eslint',
-                typescript = 'eslint',
-                typescriptreact = 'eslint',
-            },
-            formatters = {
-                eslint_d = {
-                    command = 'eslint_d',
-                    args = { '--stdin', '--stdin-filename', '%filename', '--fix-to-stdout' },
-                    rootPatterns = { '.git' },
-                },
-                prettier = {
-                    command = 'prettier',
-                    rootPatterns = { '.git' },
-                    args = { '--stdin', '--stdin-filepath', '%filename' }
-                }
-            },
-            formatFiletypes = {
-                css = 'prettier',
-                javascript = 'prettier',
-                javascriptreact = 'prettier',
-                json = 'prettier',
-                scss = 'prettier',
-                less = 'prettier',
-                typescript = 'prettier',
-                typescriptreact = 'prettier',
-                json = 'prettier',
-                markdown = 'prettier',
-            }
-        }
-    }
+        filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+    })
+
+    lspconfig.svelte.setup({
+        on_attach = make_on_attach("svelte"),
+        capabilities = capabilities,
+    })
 
     local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 
