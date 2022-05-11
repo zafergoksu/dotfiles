@@ -4,7 +4,7 @@ configuration {
 	display-window: "缾";
 	icon-theme: "Flatery";
 	fixed-num-lines: true;
-    font: "JetBrains Mono 12";
+    font: "iosevka nerd font 12";
 }
 
 @import "colors"

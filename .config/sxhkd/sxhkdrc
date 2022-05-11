@@ -78,7 +78,7 @@ alt + Return
     alacritty
 
 alt + d
-   rofi -show drun -theme iconic -show-icons
+   rofi -show drun
 
 alt + z
     zathura
@@ -117,4 +117,4 @@ alt + shift + x
 ## System menu
 
 alt + shift + s
-    $HOME/.config/polybar/scripts/sysmenu
+    $HOME/.config/sxhkd/scripts/sysmenu

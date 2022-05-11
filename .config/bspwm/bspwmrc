@@ -4,24 +4,7 @@ killall -9 sxhkd dunst picom nm-applet blueman-applet flameshot polybar mullvad-
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-feh --bg-fill ~/Pictures/Backgrounds/deskmatfinal.png &
-sxhkd &
-$HOME/.config/polybar/launch.sh &
-# xfce4-power-manager &
-picom --config ~/.config/picom/picom.conf &
-nm-applet &
-blueman-applet &
-flameshot &
-dunst &
-mullvad-vpn &
-solaar -w hide &
-# keep same cursor theme
-xsetroot -cursor_name left_ptr &
-xset r rate 200 30 &
-
 #### MONITORS ####
-bspc monitor -d 1 2 3 4 5 6 7 8 9
-
 external_monitor=$(xrandr --query | grep 'HDMI-0')
 vertical_monitor=$(xrandr --query | grep 'DP-0')
 
@@ -65,3 +48,19 @@ bspc rule -a mpv                                desktop='6'     follow=on
 bspc rule -a Thunar                             desktop='7'     follow=on
 bspc rule -a minecraft-launcher                 desktop='4'     follow=on
 bspc rule -a Zathura                            desktop='9'     follow=on       state=tiled
+
+
+nitrogen --restore &
+sxhkd &
+$HOME/.config/polybar/launch.sh &
+# xfce4-power-manager &
+compton &
+nm-applet &
+blueman-applet &
+flameshot &
+dunst &
+mullvad-vpn &
+solaar -w hide &
+# keep same cursor theme
+xsetroot -cursor_name left_ptr &
+xset r rate 200 30 &
