@@ -69,7 +69,7 @@ local function make_on_attach(server_name)
         if server_name == "rust_analyzer" then
             buf_set_keymap("n", "<leader>ff", "<cmd>RustFmt<CR>", opts)
         else
-            buf_set_keymap("n", "<leader>ff", "<cmd> lua vim.lsp.buf.formatting()", opts)
+            buf_set_keymap("n", "<leader>ff", "<cmd> lua vim.lsp.buf.formatting()<CR>", opts)
         end
 
         if server_name == "rust_analyzer" then
@@ -80,6 +80,7 @@ local function make_on_attach(server_name)
             client.resolved_capabilities.document_formatting = false
         end
 
+        vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting_sync()' ]]
         lsp_format(client)
     end
 end
