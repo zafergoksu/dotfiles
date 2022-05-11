@@ -2,6 +2,8 @@
 
 killall -9 sxhkd dunst picom nm-applet blueman-applet flameshot polybar mullvad-vpn
 
+export _JAVA_AWT_WM_NONREPARENTING=1
+
 feh --bg-fill ~/Pictures/Backgrounds/deskmatfinal.png &
 sxhkd &
 $HOME/.config/polybar/launch.sh &
@@ -12,6 +14,7 @@ blueman-applet &
 flameshot &
 dunst &
 mullvad-vpn &
+solaar -w hide &
 # keep same cursor theme
 xsetroot -cursor_name left_ptr &
 xset r rate 200 30 &
