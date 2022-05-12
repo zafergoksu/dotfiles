@@ -15,3 +15,8 @@ external_monitor=$(xrandr --query | grep 'HDMI-0')
 if [[ $external_monitor = HDMI-0\ connected* ]]; then
     polybar -c ~/.config/polybar/config.ini secondary &
 fi
+
+external_monitor=$(xrandr --query | grep 'DP-0')
+if [[ $external_monitor = DP-0\ connected* ]]; then
+    polybar -c ~/.config/polybar/config.ini third &
+fi
