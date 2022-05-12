@@ -54,7 +54,7 @@ nitrogen --restore &
 sxhkd &
 $HOME/.config/polybar/launch.sh &
 # xfce4-power-manager &
-compton &
+picom &
 nm-applet &
 blueman-applet &
 flameshot &
