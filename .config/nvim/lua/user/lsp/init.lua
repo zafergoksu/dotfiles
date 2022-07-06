@@ -207,6 +207,11 @@ local function setup_lsp()
         capabilities = capabilities,
     })
 
+    lspconfig.hls.setup({
+        on_attach = make_on_attach("hls"),
+        capabilities = capabilities,
+    })
+
     local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 
     for type, icon in pairs(signs) do

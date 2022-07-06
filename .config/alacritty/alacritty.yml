@@ -1,67 +1,65 @@
 env:
-  WINIT_UNIX_BACKEND: "x11"
-  WINIT_X11_SCALE_FACTOR: "1"
-
-window:
-  decorations: none
+    WINIT_UNIX_BACKEND: 'x11'
+    WINIT_X11_SCALE_FACTOR: '1'
 
 scrolling:
-  # Maximum number of lines in the scrollback buffer.
-  # Specifying '0' will disable scrolling.
-  history: 80000
+    # Maximum number of lines in the scrollback buffer.
+    # Specifying '0' will disable scrolling.
+    history: 80000
 
 # Font configuration
 font:
-  normal:
-    #family: Hack Nerd Font
-    #family: Noto Sans Mono
-    family: iosevka nerd font
+    normal:
+        #family: Hack Nerd Font
+        #family: Noto Sans Mono
+        # family: iosevka nerd font
+        family: JetBrains Mono Nerd Font
 
-  bold:
-    family: iosevka nerd font
+    bold:
+        family: JetBrains Mono Nerd Font
 
-  italic:
-    family: iosevka nerd font
+    italic:
+        family: JetBrains Mono Nerd Font
 
-  bold_italic:
-    family: iosevka nerd font
+    bold_italic:
+        family: JetBrains Mono Nerd Font
 
-  size: 14.0
+    size: 14.0
 
 # Base16 Gruvbox dark, hard - alacritty color config
 # Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
 colors:
-  # Default colors
-  primary:
-    background: '0x1d2021'
-    foreground: '0xd5c4a1'
+    # Default colors
+    primary:
+        background: '0x1d2021'
+        foreground: '0xd5c4a1'
 
-  # Colors the cursor will use if `custom_cursor_colors` is true
-  cursor:
-    text: '0x1d2021'
-    cursor: '0xd5c4a1'
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+        text: '0x1d2021'
+        cursor: '0xd5c4a1'
 
-  # Normal colors
-  normal:
-    black:   '0x1d2021'
-    red:     '0xfb4934'
-    green:   '0xb8bb26'
-    yellow:  '0xfabd2f'
-    blue:    '0x83a598'
-    magenta: '0xd3869b'
-    cyan:    '0x8ec07c'
-    white:   '0xd5c4a1'
+    # Normal colors
+    normal:
+        black: '0x1d2021'
+        red: '0xfb4934'
+        green: '0xb8bb26'
+        yellow: '0xfabd2f'
+        blue: '0x83a598'
+        magenta: '0xd3869b'
+        cyan: '0x8ec07c'
+        white: '0xd5c4a1'
 
-  # Bright colors
-  bright:
-    black:   '0x665c54'
-    red:     '0xfe8019'
-    green:   '0x3c3836'
-    yellow:  '0x504945'
-    blue:    '0xbdae93'
-    magenta: '0xebdbb2'
-    cyan:    '0xd65d0e'
-    white:   '0xfbf1c7'
+    # Bright colors
+    bright:
+        black: '0x665c54'
+        red: '0xfe8019'
+        green: '0x3c3836'
+        yellow: '0x504945'
+        blue: '0xbdae93'
+        magenta: '0xebdbb2'
+        cyan: '0xd65d0e'
+        white: '0xfbf1c7'
 
 draw_bold_text_with_bright_colors: false
 
@@ -70,19 +68,20 @@ draw_bold_text_with_bright_colors: false
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
 window:
-  opacity: 1.0
+    decorations: none
+    opacity: 1.0
 
 cursor:
-  # Cursor style
-  #
-  # Values for `style`:
-  #   - ▇ Block
-  #   - _ Underline
-  #   - | Beam
-  style: Block
-  blinking: On
-  blink_interval: 750
+    # Cursor style
+    #
+    # Values for `style`:
+    #   - ▇ Block
+    #   - _ Underline
+    #   - | Beam
+    style: Block
+    blinking: On
+    blink_interval: 750
 
 key_bindings:
-  - { key: V,        mods: Control|Shift, action: Paste                            }
-  - { key: C,        mods: Control|Shift, action: Copy                             }
+    - { key: V, mods: Control|Shift, action: Paste }
+    - { key: C, mods: Control|Shift, action: Copy }

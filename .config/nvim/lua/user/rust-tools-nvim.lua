@@ -4,6 +4,7 @@ lsp_status.register_progress()
 local rust_tools_opts = {
     tools = {
         autoSetHints = true,
+        hover_with_actions = false,
     },
     -- all the opts to send to nvim-lspconfig
     -- these override the defaults set by rust-tools.nvim

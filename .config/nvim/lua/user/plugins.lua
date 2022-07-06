@@ -67,7 +67,7 @@ return packer.startup(function(use)
     -- TokyoNight
     --use "folke/tokyonight.nvim"
     -- Gruvbox dark
-    use "morhetz/gruvbox"
+    use "gruvbox-community/gruvbox"
     -- Github Themes
     -- use "projekt0n/github-nvim-theme"
 
@@ -104,6 +104,9 @@ return packer.startup(function(use)
 
     -- Rust
     use "simrat39/rust-tools.nvim"
+
+    -- LSP Signature
+    use "ray-x/lsp_signature.nvim"
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

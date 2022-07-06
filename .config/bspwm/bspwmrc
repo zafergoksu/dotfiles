@@ -42,9 +42,9 @@ bspc rule -a firefox                            desktop='2'     follow=on
 bspc rule -a Chromium                           desktop='2'     follow=on
 bspc rule -a spotify                            desktop='3'     follow=on
 bspc rule -a Steam                              desktop='4'     
-bspc rule -a discord                            desktop='5'     
+bspc rule -a discord                            desktop='6'     
 bspc rule -a Lutris                             desktop='4'     follow=on
-bspc rule -a mpv                                desktop='6'     follow=on
+bspc rule -a mpv                                desktop='7'     follow=on
 bspc rule -a Thunar                             desktop='7'     follow=on
 bspc rule -a minecraft-launcher                 desktop='4'     follow=on
 bspc rule -a Zathura                            desktop='9'     follow=on       state=tiled
