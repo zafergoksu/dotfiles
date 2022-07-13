@@ -96,7 +96,7 @@ alt + shift + e
 ########### System Keys ###########
 ###################################
 
-#Volume Control
+# Volume Controls
 XF86AudioLowerVolume
 	pamixer -u && pamixer -d 5
 XF86AudioRaiseVolume
@@ -104,17 +104,26 @@ XF86AudioRaiseVolume
 XF86AudioMute
 	pamixer -t
 
-#Brightness control
+# Media Controls
+XF86AudioPlay
+    playerctl play-pause
+XF86AudioPrev
+    playerctl previous
+XF86AudioNext
+    playerctl next
+XF86AudioStop
+    playerctl stop
+
+# Brightness control
 XF86MonBrightnessDown
 	brightness -dec 5
 XF86MonBrightnessUp
 	brightness -inc 5
 
-## Lock screen
+# Lock screen
 alt + shift + x
 	betterlockscreen -l dim
 
-## System menu
-
+# System menu
 alt + shift + s
     $HOME/.config/sxhkd/scripts/sysmenu
