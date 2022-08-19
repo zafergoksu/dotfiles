@@ -75,3 +75,12 @@ keymap("n", "<leader>f", ":Format<cr>", opts)
 -- Buffers
 keymap("n", "<leader>d", ":Bdelete %<CR>", opts)
 
+-- DAP
+keymap("n", "<leader>b", ":DapToggleBreakpoint<CR>", opts)
+keymap("n", "<leader>r", ":lua require('dapui').toggle()<CR>", opts)
+keymap("n", "<F4>", ":RustDebuggables<CR>", opts)
+keymap("n", "<F5>", ":DapContinue<CR>", opts)
+keymap("n", "<F6>", ":DapStepOver<CR>", opts)
+keymap("n", "<F7>", ":DapStepInto<CR>", opts)
+keymap("n", "<F8>", ":DapStepOut<CR>", opts)
+keymap("n", "<F9>", ":DapTerminate<CR>", opts)

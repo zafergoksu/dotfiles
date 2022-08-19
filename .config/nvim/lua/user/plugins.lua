@@ -56,6 +56,8 @@ return packer.startup(function(use)
     use "arkav/lualine-lsp-progress"
     use "nvim-lua/lsp-status.nvim"
     use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
+    use "tpope/vim-surround"
+    use "lewis6991/impatient.nvim"
 
     -- Git
     use "lewis6991/gitsigns.nvim"
@@ -70,6 +72,8 @@ return packer.startup(function(use)
     use "gruvbox-community/gruvbox"
     -- Github Themes
     -- use "projekt0n/github-nvim-theme"
+    -- OneDarkPro
+    use "navarasu/onedark.nvim"
 
     -- Telescope
     use "nvim-telescope/telescope.nvim"
@@ -99,11 +103,17 @@ return packer.startup(function(use)
 
     -- LSP
     use "neovim/nvim-lspconfig" -- enable LSP
-    -- use "williamboman/nvim-lsp-installer" -- simple to use language server installer
+    use "williamboman/mason.nvim"
+    use "williamboman/mason-lspconfig.nvim"
     use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
 
     -- Rust
     use "simrat39/rust-tools.nvim"
+
+    -- Debugging
+    use "mfussenegger/nvim-dap"
+    use "rcarriga/nvim-dap-ui"
+    use "nvim-telescope/telescope-dap.nvim"
 
     -- LSP Signature
     use "ray-x/lsp_signature.nvim"
