@@ -36,6 +36,10 @@ local function make_on_attach(server_name)
             buf_set_keymap("n", "gJ", "<cmd>RustJoinLines<CR>", opts)
         end
 
+        if server_name == "tsserver" then
+            client.resolved_capabilities.document_formatting = false
+        end
+
         lsp_format(client)
     end
 end
@@ -68,5 +72,13 @@ require("mason-lspconfig").setup_handlers {
     -- For example, a handler override for the `rust_analyzer`:
     ["rust_analyzer"] = function()
         require("rust-tools").setup(require("user.rust-tools-nvim").setup)
+    end,
+
+    ["tsserver"] = function()
+        require("lspconfig")["tsserver"].setup({
+            on_attach = make_on_attach("tsserver"),
+            capabilities = make_capabilities(),
+            filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+        })
     end
 }
