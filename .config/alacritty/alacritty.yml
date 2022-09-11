@@ -12,20 +12,20 @@ font:
     normal:
         #family: Hack Nerd Font
         #family: Noto Sans Mono
-        #family: iosevka nerd font
-        family: JetBrains Mono Nerd Font
+        family: iosevka nerd font
+        # family: JetBrains Mono Nerd Font
 
     bold:
-      #family: iosevka nerd font
-        family: JetBrains Mono Nerd Font
+        family: iosevka nerd font
+        # family: JetBrains Mono Nerd Font
 
     italic:
-      #family: iosevka nerd font
-        family: JetBrains Mono Nerd Font
+        family: iosevka nerd font
+        # family: JetBrains Mono Nerd Font
 
     bold_italic:
-      #family: iosevka nerd font
-        family: JetBrains Mono Nerd Font
+        family: iosevka nerd font
+        # family: JetBrains Mono Nerd Font
 
     size: 14.0
 

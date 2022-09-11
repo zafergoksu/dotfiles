@@ -76,14 +76,16 @@ keymap("n", "<leader>f", ":Format<cr>", opts)
 keymap("n", "<leader>d", ":Bdelete %<CR>", opts)
 
 -- DAP
-keymap("n", "<leader>b", ":DapToggleBreakpoint<CR>", opts)
-keymap("n", "<leader>r", ":lua require('dapui').toggle()<CR>", opts)
-keymap("n", "<F4>", ":RustDebuggables<CR>", opts)
+keymap("n", "<F4>", ":DapToggleBreakpoint<CR>", opts)
+keymap("n", "<F3>", ":lua require('dapui').toggle()<CR>", opts)
+keymap("n", "<F2>", ":RustDebuggables<CR>", opts)
 keymap("n", "<F5>", ":DapContinue<CR>", opts)
 keymap("n", "<F6>", ":DapStepOver<CR>", opts)
 keymap("n", "<F7>", ":DapStepInto<CR>", opts)
 keymap("n", "<F8>", ":DapStepOut<CR>", opts)
 keymap("n", "<F9>", ":DapTerminate<CR>", opts)
+keymap("n", "<F10>", ":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", opts)
+keymap("n", "<F11>", ":lua require('dap').set_breakpoint({ nil, nil, vim.fn.input('Log point message: ')})<CR>", opts)
 
 -- LSP
 keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
