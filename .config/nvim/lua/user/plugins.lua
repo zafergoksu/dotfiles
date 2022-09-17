@@ -67,13 +67,15 @@ return packer.startup(function(use)
 
     -- Colorschemes
     -- TokyoNight
-    --use "folke/tokyonight.nvim"
+    use "folke/tokyonight.nvim"
     -- Gruvbox dark
     use "gruvbox-community/gruvbox"
     -- Github Themes
-    -- use "projekt0n/github-nvim-theme"
+    use "projekt0n/github-nvim-theme"
     -- OneDarkPro
     use "navarasu/onedark.nvim"
+    -- Nightfox
+    use "EdenEast/nightfox.nvim"
 
     -- Telescope
     use "nvim-telescope/telescope.nvim"

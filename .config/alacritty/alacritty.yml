@@ -1,37 +1,127 @@
-env:
-    WINIT_UNIX_BACKEND: 'x11'
-    WINIT_X11_SCALE_FACTOR: '1'
+schemes:
+  # Tokyo Night theme, based on both:
+  #   https://github.com/ghifarit53/tokyonight-vim
+  #   https://github.com/enkia/tokyo-night-vscode-theme
+  tokyo-night: &tokyo-night
+    # Default colors
+    primary:
+      background: '0x1a1b26'
+      foreground: '0xa9b1d6'
 
-scrolling:
-    # Maximum number of lines in the scrollback buffer.
-    # Specifying '0' will disable scrolling.
-    history: 80000
-
-# Font configuration
-font:
+    # Normal colors
     normal:
-        #family: Hack Nerd Font
-        #family: Noto Sans Mono
-        family: iosevka nerd font
-        # family: JetBrains Mono Nerd Font
+      black:   '0x32344a'
+      red:     '0xf7768e'
+      green:   '0x9ece6a'
+      yellow:  '0xe0af68'
+      blue:    '0x7aa2f7'
+      magenta: '0xad8ee6'
+      cyan:    '0x449dab'
+      white:   '0x787c99'
 
-    bold:
-        family: iosevka nerd font
-        # family: JetBrains Mono Nerd Font
+    # Bright colors
+    bright:
+      black:   '0x444b6a'
+      red:     '0xff7a93'
+      green:   '0xb9f27c'
+      yellow:  '0xff9e64'
+      blue:    '0x7da6ff'
+      magenta: '0xbb9af7'
+      cyan:    '0x0db9d7'
+      white:   '0xacb0d0'
 
-    italic:
-        family: iosevka nerd font
-        # family: JetBrains Mono Nerd Font
+  tokyo-night-storm: &tokyo-night-storm
+    # Default colors
+    primary:
+      background: '0x24283b'
+      foreground: '0xa9b1d6'
 
-    bold_italic:
-        family: iosevka nerd font
-        # family: JetBrains Mono Nerd Font
+    # Normal colors
+    normal:
+      black:   '0x32344a'
+      red:     '0xf7768e'
+      green:   '0x9ece6a'
+      yellow:  '0xe0af68'
+      blue:    '0x7aa2f7'
+      magenta: '0xad8ee6'
+      cyan:    '0x449dab'
+      white:   '0x9699a8'
 
-    size: 14.0
+    # Bright colors
+    bright:
+      black:   '0x444b6a'
+      red:     '0xff7a93'
+      green:   '0xb9f27c'
+      yellow:  '0xff9e64'
+      blue:    '0x7da6ff'
+      magenta: '0xbb9af7'
+      cyan:    '0x0db9d7'
+      white:   '0xacb0d0'
 
-# Base16 Gruvbox dark, hard - alacritty color config
-# Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
-colors:
+  github-dark: &github-dark
+    # Default colors
+    primary:
+      background: '0x24292e'
+      foreground: '0xd1d5da'
+
+    # Normal colors
+    normal:
+      black:   '0x24292e'
+      red:     '0xf14c4c'
+      green:   '0x23d18b'
+      yellow:  '0xe2e210'
+      blue:    '0x3b8eea'
+      magenta: '0xbc3fbc'
+      cyan:    '0x29b7da'
+      white:   '0xd1d5da'
+
+    # Bright colors
+    bright:
+      black:   '0x666666'
+      red:     '0xf14c4c'
+      green:   '0x23d18b'
+      yellow:  '0xf5f543'
+      blue:    '0x3b8eea'
+      magenta: '0xd670d6'
+      cyan:    '0x29b7da'
+      white:   '0xd1d5da'
+
+    indexed_colors:
+      - { index: 16, color: '0xd18616' }
+      - { index: 17, color: '0xf14c4c' }
+
+  one-dark: &one-dark
+    # Colors (One Dark)
+    # Default colors
+    primary:
+      background: '0x1e2127'
+      foreground: '0xabb2bf'
+
+    # Normal colors
+    normal:
+      black:   '0x1e2127'
+      red:     '0xe06c75'
+      green:   '0x98c379'
+      yellow:  '0xd19a66'
+      blue:    '0x61afef'
+      magenta: '0xc678dd'
+      cyan:    '0x56b6c2'
+      white:   '0xabb2bf'
+
+    # Bright colors
+    bright:
+      black:   '0x5c6370'
+      red:     '0xe06c75'
+      green:   '0x98c379'
+      yellow:  '0xd19a66'
+      blue:    '0x61afef'
+      magenta: '0xc678dd'
+      cyan:    '0x56b6c2'
+      white:   '0xffffff'
+
+  gruvbox-dark-hard: &gruvbox-dark-hard
+    # Base16 Gruvbox dark, hard - alacritty color config
+    # Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
     # Default colors
     primary:
         background: '0x1d2021'
@@ -63,6 +153,43 @@ colors:
         magenta: '0xebdbb2'
         cyan: '0xd65d0e'
         white: '0xfbf1c7'
+
+env:
+    WINIT_UNIX_BACKEND: 'x11'
+    WINIT_X11_SCALE_FACTOR: '1'
+
+colors: *gruvbox-dark-hard
+
+scrolling:
+    # Maximum number of lines in the scrollback buffer.
+    # Specifying '0' will disable scrolling.
+    history: 80000
+
+# Font configuration
+font:
+    normal:
+        # family: Hack Nerd Font
+        #family: Noto Sans Mono
+        family: iosevka nerd font
+        # family: JetBrains Mono Nerd Font
+
+    bold:
+        # family: Hack Nerd Font
+        family: iosevka nerd font
+        # family: JetBrains Mono Nerd Font
+
+    italic:
+        # family: Hack Nerd Font
+        family: iosevka nerd font
+        # family: JetBrains Mono Nerd Font
+
+    bold_italic:
+        # family: Hack Nerd Font
+        family: iosevka nerd font
+        # family: JetBrains Mono Nerd Font
+
+    size: 14.0
+
 
 draw_bold_text_with_bright_colors: false
 
