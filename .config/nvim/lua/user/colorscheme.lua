@@ -1,6 +1,6 @@
 -- Gruvbox Dark
-vim.g.gruvbox_contrast_dark = "hard"
-vim.cmd("colorscheme gruvbox")
+--[[ vim.g.gruvbox_contrast_dark = "hard" ]]
+--[[ vim.cmd("colorscheme gruvbox") ]]
 
 -- Tokyo Night Dark
 --[[ vim.cmd("colorscheme tokyonight-night") ]]
@@ -9,9 +9,9 @@ vim.cmd("colorscheme gruvbox")
 --[[ vim.cmd("colorscheme nightfox") ]]
 
 -- Github Theme Dark
---[[ require("github-theme").setup({ ]]
---[[     theme_style = "dark", ]]
---[[ }) ]]
+require("github-theme").setup({
+    theme_style = "dimmed",
+})
 
 -- OneDarkPro
 --[[ require("onedark").setup({ ]]

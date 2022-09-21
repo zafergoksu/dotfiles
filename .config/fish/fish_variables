@@ -8,10 +8,10 @@ SETUVAR Z_DATA_DIR:/home/zafer/\x2elocal/share/z
 SETUVAR Z_EXCLUDE:\x5e/home/zafer\x24
 SETUVAR __fish_initialized:3400
 SETUVAR _fish_abbr_cat:bat
-SETUVAR _fish_abbr_l:exa\x20\x2dla
-SETUVAR _fish_abbr_ll:exa\x20\x2dl
+SETUVAR _fish_abbr_l:exa\x20\x2dla\x20\x2d\x2dcolour\x3dnever
+SETUVAR _fish_abbr_ll:exa\x20\x2dl\x20\x2d\x2dcolour\x3dnever
 SETUVAR _fish_abbr_lll:exa\x20\x2dla
-SETUVAR _fish_abbr_ls:exa
+SETUVAR _fish_abbr_ls:exa\x20\x2d\x2dcolour\x3dnever
 SETUVAR _fisher_PatrickF1_2F_fzf_2E_fish_files:/home/zafer/\x2econfig/fish/functions/_fzf_configure_bindings_help\x2efish\x1e/home/zafer/\x2econfig/fish/functions/_fzf_extract_var_info\x2efish\x1e/home/zafer/\x2econfig/fish/functions/_fzf_preview_file\x2efish\x1e/home/zafer/\x2econfig/fish/functions/_fzf_report_file_type\x2efish\x1e/home/zafer/\x2econfig/fish/functions/_fzf_search_directory\x2efish\x1e/home/zafer/\x2econfig/fish/functions/_fzf_search_git_log\x2efish\x1e/home/zafer/\x2econfig/fish/functions/_fzf_search_git_status\x2efish\x1e/home/zafer/\x2econfig/fish/functions/_fzf_search_history\x2efish\x1e/home/zafer/\x2econfig/fish/functions/_fzf_search_variables\x2efish\x1e/home/zafer/\x2econfig/fish/functions/fzf_configure_bindings\x2efish\x1e/home/zafer/\x2econfig/fish/conf\x2ed/fzf\x2efish\x1e/home/zafer/\x2econfig/fish/completions/fzf_configure_bindings\x2efish
 SETUVAR _fisher_jethrokuan_2F_z_files:/home/zafer/\x2econfig/fish/functions/__z\x2efish\x1e/home/zafer/\x2econfig/fish/functions/__z_add\x2efish\x1e/home/zafer/\x2econfig/fish/functions/__z_clean\x2efish\x1e/home/zafer/\x2econfig/fish/functions/__z_complete\x2efish\x1e/home/zafer/\x2econfig/fish/conf\x2ed/z\x2efish
 SETUVAR _fisher_plugins:PatrickF1/fzf\x2efish\x1ejethrokuan/z

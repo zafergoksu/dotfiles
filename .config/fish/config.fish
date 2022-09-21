@@ -11,11 +11,12 @@ set -g theme_hostname always
 
 # alias
 if command -v exa > /dev/null
-	abbr -a l 'exa -la'
-	abbr -a ls 'exa'
-	abbr -a ll 'exa -l'
+	abbr -a l 'exa -la --colour=never'
+	abbr -a ls 'exa --colour=never'
+	abbr -a ll 'exa -l --colour=never'
 else
-	abbr -a l 'l -l'
+    abbr -a ls 'ls'
+	abbr -a l 'ls -l'
 	abbr -a ll 'ls -la'
 end
 
