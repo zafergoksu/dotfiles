@@ -57,7 +57,6 @@ return packer.startup(function(use)
     use "nvim-lua/lsp-status.nvim"
     use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
     use "tpope/vim-surround"
-    use "lewis6991/impatient.nvim"
 
     -- Git
     use "lewis6991/gitsigns.nvim"

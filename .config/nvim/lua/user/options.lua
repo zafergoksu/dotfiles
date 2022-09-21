@@ -33,7 +33,8 @@ local options = {
     linebreak = true,
     scrolloff = 8, -- is one of my fav
     sidescrolloff = 8,
-    guifont = "JetBrains Mono:h17", -- the font used in graphical neovim applications
+    guicursor = "n-v-c-i:block",
+    guifont = "iosevka Nerd Font:h17", -- the font used in graphical neovim applications
 }
 
 vim.opt.shortmess:append "c"
