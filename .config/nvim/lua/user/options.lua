@@ -33,7 +33,6 @@ local options = {
     linebreak = true,
     scrolloff = 8, -- is one of my fav
     sidescrolloff = 8,
-    guicursor = "n-v-c-i:block",
     guifont = "iosevka Nerd Font:h17", -- the font used in graphical neovim applications
 }
 
