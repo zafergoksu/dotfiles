@@ -9,12 +9,12 @@
 --[[ vim.cmd("colorscheme nightfox") ]]
 
 -- Github Theme Dark
-require("github-theme").setup({
-    theme_style = "dimmed",
-})
+--[[ require("github-theme").setup({ ]]
+--[[     theme_style = "dimmed", ]]
+--[[ }) ]]
 
 -- OneDarkPro
---[[ require("onedark").setup({ ]]
---[[     style = "darker" ]]
---[[ }) ]]
---[[ require("onedark").load() ]]
+require("onedark").setup({
+    style = "dark"
+})
+require("onedark").load()
