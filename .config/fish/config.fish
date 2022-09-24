@@ -20,6 +20,8 @@ else
 	abbr -a ll 'ls -la'
 end
 
+abbr -a vim 'nvim'
+
 set -gx EDITOR nvim
 
 set -gx PATH bin $PATH
