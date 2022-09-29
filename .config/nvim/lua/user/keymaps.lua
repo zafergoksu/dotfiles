@@ -30,6 +30,7 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 -- Save and Quit
 keymap("n", "<leader>s", ":w<CR>", opts)
 keymap("n", "<leader>q", ":q<CR>", opts)
+keymap("n", "<leader>Q", ":qall<CR>", opts)
 
 -- Insert --
 -- Press jk fast to enter
