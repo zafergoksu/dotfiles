@@ -63,9 +63,9 @@ local rust_tools_opts = {
                 cargo = {
                     allFeatures = true,
                 },
-                --[[ checkOnSave = { ]]
-                --[[     command = "clippy", ]]
-                --[[ }, ]]
+                checkOnSave = {
+                    command = "clippy",
+                },
                 lens = {
                     references = true,
                     methodReferences = true,
