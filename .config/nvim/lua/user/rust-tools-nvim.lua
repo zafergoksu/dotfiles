@@ -6,7 +6,7 @@ local codelldb_path = extension_path .. 'adapter/codelldb'
 local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
 
 local function lsp_format(client)
-    if client.resolved_capabilities.document_formatting then
+    if client.server_capabilities.document_formatting then
         vim.api.nvim_exec(
             [[
             augroup Format
