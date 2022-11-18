@@ -46,7 +46,7 @@ end
 
 local function make_capabilities()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
     capabilities = vim.tbl_extend("keep", capabilities, require("lsp-status").capabilities)
 
     return capabilities
@@ -55,7 +55,7 @@ end
 require("mason").setup()
 require("mason-lspconfig").setup({
     ensure_installed = { "sumneko_lua", "rust_analyzer", "clangd", "dockerls", "bashls", "cmake", "cssls", "gopls",
-        "html", "hls", "jsonls", "tsserver", "pyright", "svelte", "taplo", "tailwindcss", "zig", "yamlls" }
+        "html", "hls", "jsonls", "tsserver", "pyright", "svelte", "taplo", "tailwindcss", "zls", "yamlls" }
 })
 
 require("mason-lspconfig").setup_handlers {

@@ -14,7 +14,11 @@
 --[[ }) ]]
 
 -- OneDarkPro
-require("onedark").setup({
-    style = "dark"
-})
-require("onedark").load()
+--[[ require("onedark").setup({ ]]
+--[[     style = "dark" ]]
+--[[ }) ]]
+--[[ require("onedark").load() ]]
+
+-- Alabaster
+-- vim.cmd("termguicolors")
+vim.cmd("colorscheme alabaster")

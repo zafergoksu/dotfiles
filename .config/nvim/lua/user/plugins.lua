@@ -75,6 +75,8 @@ return packer.startup(function(use)
     use "navarasu/onedark.nvim"
     -- Nightfox
     use "EdenEast/nightfox.nvim"
+    -- alabaster
+    use "p00f/alabaster.nvim"
 
     -- Telescope
     use "nvim-telescope/telescope.nvim"
