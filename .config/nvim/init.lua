@@ -1,17 +1,18 @@
-require "user.options"
-require "user.keymaps"
-require "user.plugins"
-require "user.colorscheme"
-require "user.mason-nvim"
-require "user.null-ls"
-require "user.nvim-lspconfig"
-require "user.cmp"
-require "user.telescope"
-require "user.treesitter"
-require "user.autopairs"
-require "user.comment"
-require "user.nvim-tree"
-require "user.bufferline"
-require "user.lualine"
-require "user.lsp-signature"
-require "user.dap"
+require("user.options")
+require("user.keymaps")
+require("user.plugins")
+require("user.colorscheme")
+require("user.mason-nvim")
+require("user.null-ls")
+require("user.nvim-lspconfig")
+require("user.cmp")
+require("user.telescope")
+require("user.treesitter")
+require("user.autopairs")
+require("user.comment")
+require("user.nvim-tree")
+require("user.bufferline")
+require("user.lualine")
+require("user.lsp-signature")
+require("user.dap")
+require("user.gitsigns")

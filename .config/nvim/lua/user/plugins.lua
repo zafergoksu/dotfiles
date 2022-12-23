@@ -60,11 +60,14 @@ return packer.startup(function(use)
 
     -- Git
     use "lewis6991/gitsigns.nvim"
+    use "tpope/vim-fugitive"
 
     -- Markdown Preview
     use { "iamcco/markdown-preview.nvim", ft = 'markdown', run = 'cd app && yarn install', cmd = 'MarkdownPreview' }
 
     -- Colorschemes
+    -- Ayu
+    use "Shatur/neovim-ayu"
     -- TokyoNight
     use "folke/tokyonight.nvim"
     -- Gruvbox dark

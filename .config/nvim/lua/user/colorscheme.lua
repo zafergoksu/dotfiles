@@ -1,6 +1,6 @@
 -- Gruvbox Dark
---[[ vim.g.gruvbox_contrast_dark = "hard" ]]
---[[ vim.cmd("colorscheme gruvbox") ]]
+vim.g.gruvbox_contrast_dark = "hard"
+vim.cmd("colorscheme gruvbox")
 
 -- Tokyo Night Dark
 --[[ vim.cmd("colorscheme tokyonight-night") ]]
@@ -10,7 +10,7 @@
 
 -- Github Theme Dark
 --[[ require("github-theme").setup({ ]]
---[[     theme_style = "dimmed", ]]
+--[[     theme_style = "dark", ]]
 --[[ }) ]]
 
 -- OneDarkPro
@@ -19,6 +19,8 @@
 --[[ }) ]]
 --[[ require("onedark").load() ]]
 
+-- Ayu
+--[[ require("ayu").colorscheme() ]]
+
 -- Alabaster
--- vim.cmd("termguicolors")
-vim.cmd("colorscheme alabaster")
+--[[ vim.cmd("colorscheme alabaster") ]]

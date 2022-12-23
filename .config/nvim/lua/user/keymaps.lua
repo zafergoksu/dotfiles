@@ -86,7 +86,7 @@ keymap("n", "<F7>", ":DapStepInto<CR>", opts)
 keymap("n", "<F8>", ":DapStepOut<CR>", opts)
 keymap("n", "<F9>", ":DapTerminate<CR>", opts)
 keymap("n", "<F10>", ":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", opts)
-keymap("n", "<F11>", ":lua require('dap').set_breakpoint({ nil, nil, vim.fn.input('Log point message: ')})<CR>", opts)
+-- keymap("n", "<F11>", ":lua require('dap').set_breakpoint({ nil, nil, vim.fn.input('Log point message: ')})<CR>", opts)
 
 -- LSP
 keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
