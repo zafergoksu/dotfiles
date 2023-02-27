@@ -54,8 +54,8 @@ end
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "sumneko_lua", "rust_analyzer", "clangd", "dockerls", "bashls", "cmake", "cssls", "gopls",
-        "html", "hls", "jsonls", "tsserver", "pyright", "svelte", "taplo", "tailwindcss", "zls", "yamlls" }
+    ensure_installed = { "rust_analyzer", "clangd", "dockerls", "bashls", "cmake", "cssls", "gopls",
+        "html", "jsonls", "tsserver", "pyright", "svelte", "taplo", "tailwindcss", "zls", "yamlls" }
 })
 
 require("mason-lspconfig").setup_handlers {
