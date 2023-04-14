@@ -1,26 +1,27 @@
 #! /bin/sh
 
-killall -9 sxhkd dunst picom nm-applet blueman-applet flameshot polybar mullvad-vpn
+killall -9 sxhkd dunst picom nm-applet blueman-applet flameshot polybar discord noisetorch
 
 export _JAVA_AWT_WM_NONREPARENTING=1
+xrandr --output DisplayPort-0 --mode 2560x1440 --rate 165 --left-of HDMI-A-0
 
 #### MONITORS ####
-external_monitor=$(xrandr --query | grep 'HDMI-0')
-vertical_monitor=$(xrandr --query | grep 'DP-0')
+external_monitor=$(xrandr --query | grep 'HDMI-A-0')
+vertical_monitor=$(xrandr --query | grep 'DisplayPort-1')
 
-if [[ $external_monitor = HDMI-0\ connected* && $vertical_monitor = DP-0\ connected* ]]; then
-	bspc monitor DP-2 -d 1 2 3 4
-	bspc monitor HDMI-0 -d 5 6 7
-    bspc monitor DP-0 -d 8 9
-elif [[ $external_monitor = HDMI-0\ connected* ]]; then
-	bspc monitor DP-2 -d 1 2 3 4 5 6
-	bspc monitor HDMI-0 -d 7 8 9
+if [[ $external_monitor = HDMI-A-0\ connected* && $vertical_monitor = DisplayPort-1\ connected* ]]; then
+	bspc monitor DisplayPort-0 -d 1 2 3 4
+	bspc monitor HDMI-A-0 -d 5 6 7
+    bspc monitor DisplayPort-1 -d 8 9
+elif [[ $external_monitor = HDMI-A-0\ connected* ]]; then
+	bspc monitor DisplayPort-0 -d 1 2 3 4 5 6
+	bspc monitor HDMI-A-0 -d 7 8 9
 else
-	bspc monitor DP-2 -d 1 2 3 4 5 6 7 8 9
+	bspc monitor DisplayPort-0 -d 1 2 3 4 5 6 7 8 9
 fi
 
 bspc config border_width                        2
-bspc config window_gap                          8 
+bspc config window_gap                          0 
 
 bspc config top_padding                         32
 bspc config split_ratio                         0.5
@@ -49,6 +50,8 @@ bspc rule -a Thunar                             desktop='7'     follow=on
 bspc rule -a minecraft-launcher                 desktop='4'     follow=on
 bspc rule -a Zathura                            desktop='9'     follow=on       state=tiled
 
+# Trackball config
+$HOME/.local/bin/zafer/trackball-config
 
 nitrogen --restore &
 sxhkd &
@@ -59,8 +62,9 @@ nm-applet &
 blueman-applet &
 flameshot &
 dunst &
-mullvad-vpn &
 solaar -w hide &
 # keep same cursor theme
 xsetroot -cursor_name left_ptr &
+discord &
+noisetorch -i &
 xset r rate 200 30 &
