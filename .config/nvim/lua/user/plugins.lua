@@ -42,15 +42,15 @@ packer.init {
 return packer.startup(function(use)
     -- Useful Plugins
     use "wbthomason/packer.nvim" -- Have packer manage itself
-    use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
-    use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
-    use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
+    use "nvim-lua/popup.nvim"    -- An implementation of the Popup API from vim in Neovim
+    use "nvim-lua/plenary.nvim"  -- Useful lua functions used ny lots of plugins
+    use "windwp/nvim-autopairs"  -- Autopairs, integrates with both cmp and treesitter
     use "windwp/nvim-ts-autotag"
-    use "numToStr/Comment.nvim" -- Easily comment stuff
+    use "numToStr/Comment.nvim"  -- Easily comment stuff
     use "JoosepAlviste/nvim-ts-context-commentstring"
     use "nvim-tree/nvim-web-devicons"
     use "nvim-tree/nvim-tree.lua"
-    use "akinsho/bufferline.nvim"
+    use {"akinsho/bufferline.nvim", tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
     use "moll/vim-bbye"
     use "nvim-lualine/lualine.nvim"
     use "arkav/lualine-lsp-progress"
@@ -68,8 +68,6 @@ return packer.startup(function(use)
     -- Colorschemes
     -- Ayu
     use "Shatur/neovim-ayu"
-    -- TokyoNight
-    use "folke/tokyonight.nvim"
     -- Gruvbox dark
     use "gruvbox-community/gruvbox"
     -- Github Themes
@@ -80,6 +78,8 @@ return packer.startup(function(use)
     use "EdenEast/nightfox.nvim"
     -- alabaster
     use "p00f/alabaster.nvim"
+    -- vscode
+    use "Mofiqul/vscode.nvim"
 
     -- Telescope
     use "nvim-telescope/telescope.nvim"
@@ -94,19 +94,18 @@ return packer.startup(function(use)
     }
 
     -- cmp plugins
-    use "hrsh7th/nvim-cmp" -- The completion plugin
-    use "hrsh7th/cmp-buffer" -- buffer completions
-    use "hrsh7th/cmp-path" -- path completions
+    use "hrsh7th/nvim-cmp"    -- The completion plugin
+    use "hrsh7th/cmp-buffer"  -- buffer completions
+    use "hrsh7th/cmp-path"    -- path completions
     use "hrsh7th/cmp-cmdline" -- cmdline completions
     use "hrsh7th/cmp-nvim-lsp"
     use "hrsh7th/cmp-nvim-lua"
     use "saadparwaiz1/cmp_luasnip" -- snippet completions
-    use "David-Kunz/cmp-npm" -- npm completion
+    use "David-Kunz/cmp-npm"       -- npm completion
 
     -- snippets
-    use "L3MON4D3/LuaSnip" --snippet engine
+    use "L3MON4D3/LuaSnip"             --snippet engine
     use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
-
     -- LSP
     use "neovim/nvim-lspconfig" -- enable LSP
     use "williamboman/mason.nvim"

@@ -5,18 +5,16 @@ local extension_path = vim.env.HOME .. '/.local/share/nvim/mason/packages/codell
 local codelldb_path = extension_path .. 'adapter/codelldb'
 local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
 
-local function lsp_format(client)
-    if client.server_capabilities.document_formatting then
-        vim.api.nvim_exec(
-            [[
-            augroup Format
-            autocmd! * <buffer>
-            autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()
-            augroup END
-        ]]   ,
-            false
-        )
-    end
+local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
+local function lsp_format(client, bufnr)
+    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    vim.api.nvim_create_autocmd('BufWritePre', {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+            vim.lsp.buf.format()
+        end,
+    })
 end
 
 local function make_on_attach(server_name)
@@ -31,7 +29,7 @@ local function make_on_attach(server_name)
         buf_set_keymap("n", "<leader>ff", "<cmd>RustFmt<CR>", opts)
         buf_set_keymap("n", "gJ", "<cmd>RustJoinLines<CR>", opts)
 
-        lsp_format(client)
+        lsp_format(client, bufnr)
     end
 end
 
