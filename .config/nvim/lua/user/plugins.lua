@@ -50,7 +50,7 @@ return packer.startup(function(use)
     use "JoosepAlviste/nvim-ts-context-commentstring"
     use "nvim-tree/nvim-web-devicons"
     use "nvim-tree/nvim-tree.lua"
-    use {"akinsho/bufferline.nvim", tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
+    use { "akinsho/bufferline.nvim", tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' }
     use "moll/vim-bbye"
     use "nvim-lualine/lualine.nvim"
     use "arkav/lualine-lsp-progress"
@@ -80,6 +80,10 @@ return packer.startup(function(use)
     use "p00f/alabaster.nvim"
     -- vscode
     use "Mofiqul/vscode.nvim"
+    -- catppuccin
+    use { "catppuccin/nvim", as = "catppuccin" }
+    -- rose pine
+    use { "rose-pine/neovim", as = "rose-pine" }
 
     -- Telescope
     use "nvim-telescope/telescope.nvim"
@@ -107,7 +111,7 @@ return packer.startup(function(use)
     use "L3MON4D3/LuaSnip"             --snippet engine
     use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
     -- LSP
-    use "neovim/nvim-lspconfig" -- enable LSP
+    use "neovim/nvim-lspconfig"        -- enable LSP
     use "williamboman/mason.nvim"
     use "williamboman/mason-lspconfig.nvim"
     use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters

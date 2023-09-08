@@ -37,6 +37,9 @@ set -gx PATH node_modules/.bin $PATH
 set -g GOPATH $HOME/go
 set -gx PATH $GOPATH/bin $PATH
 
+# Emacs
+set -gx PATH ~/.config/emacs/bin $PATH
+
 function bind_bang
     switch (commandline -t)[-1]
         case "!"
@@ -62,4 +65,4 @@ function fish_user_key_bindings
 end
 
 zoxide init fish | source
-# starship init fish | source
+starship init fish | source
