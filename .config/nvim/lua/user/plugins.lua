@@ -66,6 +66,8 @@ return packer.startup(function(use)
     use { "iamcco/markdown-preview.nvim", ft = 'markdown', run = 'cd app && yarn install', cmd = 'MarkdownPreview' }
 
     -- Colorschemes
+    -- moonfly
+    use { "bluz71/vim-moonfly-colors", as = "moonfly" }
     -- Ayu
     use "Shatur/neovim-ayu"
     -- Gruvbox dark
@@ -80,6 +82,8 @@ return packer.startup(function(use)
     use "p00f/alabaster.nvim"
     -- vscode
     use "Mofiqul/vscode.nvim"
+    -- tokyonight
+    use "folke/tokyonight.nvim"
     -- catppuccin
     use { "catppuccin/nvim", as = "catppuccin" }
     -- rose pine

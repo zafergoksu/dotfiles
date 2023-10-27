@@ -1,5 +1,14 @@
+-- moonfly
+--[[ vim.cmd("colorscheme moonfly") ]]
+
+-- gruvbox
+--[[ vim.cmd("colorscheme gruvbox") ]]
+
 -- Alabaster
 --[[ vim.cmd("colorscheme alabaster") ]]
+
+-- tokyonight
+vim.cmd("colorscheme tokyonight-night")
 
 -- Ayu
 --[[ require("ayu").setup({ ]]
@@ -21,4 +30,4 @@
 --[[ vim.cmd("colorscheme rose-pine") ]]
 
 -- github
-vim.cmd("colorscheme github_dark_tritanopia")
+--[[ vim.cmd("colorscheme github_dark_tritanopia") ]]
