@@ -1,0 +1,37 @@
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+Plug 'preservim/nerdtree'
+
+set number
+set relative
+set ignorecase
+set smartcase
+set incsearch
+set wrapscan
+set tabstop=4
+set shiftwidth=4
+
+let mapleader = " "
+inoremap jj <Esc>
+nnoremap <leader>s :w<CR>
+nnoremap <leader>q :q<CR>
+vnoremap J :m'>+1<CR>gv=gv
+vnoremap K :m'<-2<CR>gv=gv
+
+vnoremap < <gv
+vnoremap > >gv
+vnoremap = =gv
+
+nnoremap <C-e> :NERDTreeToggle<CR>
+nnoremap <S-l> :bnext<CR>
+nnoremap <S-h> :bprevious<CR>
+map <C-p> <Action>(SearchEverywhere)
+
+nnmoremap <C-h> <C-w>h
+nnmoremap <C-j> <C-w>j
+nnmoremap <C-k> <C-w>k
+nnmoremap <C-l> <C-w>l

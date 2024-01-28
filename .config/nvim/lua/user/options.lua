@@ -44,3 +44,4 @@ end
 
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
+vim.g.skip_ts_context_commentstring_module = true

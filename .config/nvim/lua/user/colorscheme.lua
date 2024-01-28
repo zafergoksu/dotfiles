@@ -8,7 +8,7 @@
 --[[ vim.cmd("colorscheme alabaster") ]]
 
 -- tokyonight
-vim.cmd("colorscheme tokyonight-night")
+--[[ vim.cmd("colorscheme tokyonight-night") ]]
 
 -- Ayu
 --[[ require("ayu").setup({ ]]
@@ -30,4 +30,4 @@ vim.cmd("colorscheme tokyonight-night")
 --[[ vim.cmd("colorscheme rose-pine") ]]
 
 -- github
---[[ vim.cmd("colorscheme github_dark_tritanopia") ]]
+vim.cmd("colorscheme github_dark_tritanopia")
