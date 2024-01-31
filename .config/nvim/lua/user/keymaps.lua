@@ -75,6 +75,7 @@ keymap("n", "<leader>f", ":Format<cr>", opts)
 
 -- Buffers
 keymap("n", "<leader>bd", ":Bdelete %<CR>", opts)
+keymap("n", "<leader>bD", ":bufdo Bdelete<CR>", opts)
 
 -- DAP
 keymap("n", "<leader>dbt", ":DapToggleBreakpoint<CR>", opts)

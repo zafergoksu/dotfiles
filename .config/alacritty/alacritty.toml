@@ -1,6 +1,4 @@
-import = [
-    "/home/zafer/.config/alacritty/themes/themes/github_dark_tritanopia.toml",
-]
+import = ["/home/zafer/.config/alacritty/vscode.toml"]
 
 [colors]
 draw_bold_text_with_bright_colors = false

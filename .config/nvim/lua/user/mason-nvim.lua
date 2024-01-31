@@ -74,5 +74,20 @@ require("mason-lspconfig").setup_handlers {
             capabilities = make_capabilities(),
             filetypes = { "javascript", "typescript", "typescriptreact", "typescript.tsx" },
         })
+    end,
+
+    ["clangd"] = function()
+        require("lspconfig")["clangd"].setup({
+            on_attach = make_on_attach("clangd"),
+            capabilities = make_capabilities(),
+            settings = {
+                cmd = {
+                    "clangd",
+                    "--all-scopes-completion",
+                    "--background-index",
+                    "--clang-tidy"
+                }
+            }
+        })
     end
 }

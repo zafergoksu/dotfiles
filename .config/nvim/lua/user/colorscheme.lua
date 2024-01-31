@@ -30,4 +30,7 @@
 --[[ vim.cmd("colorscheme rose-pine") ]]
 
 -- github
-vim.cmd("colorscheme github_dark_tritanopia")
+--[[ vim.cmd("colorscheme github_dark_tritanopia") ]]
+
+-- vscode
+require('vscode').load()
