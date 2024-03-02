@@ -78,13 +78,12 @@ keymap("n", "<leader>bd", ":Bdelete %<CR>", opts)
 keymap("n", "<leader>bD", ":bufdo Bdelete<CR>", opts)
 
 -- DAP
-keymap("n", "<leader>dbt", ":DapToggleBreakpoint<CR>", opts)
+keymap("n", "<leader>t", ":DapToggleBreakpoint<CR>", opts)
 keymap("n", "<leader>dbui", ":lua require('dapui').toggle()<CR>", opts)
-keymap("n", "<leader>dbu", ":RustDebuggables<CR>", opts)
-keymap("n", "<leader>dc", ":DapContinue<CR>", opts)
-keymap("n", "<leader>dn", ":DapStepOver<CR>", opts)
-keymap("n", "<leader>ds", ":DapStepInto<CR>", opts)
-keymap("n", "<leader>dup", ":DapStepOut<CR>", opts)
+keymap("n", "<leader>c", ":DapContinue<CR>", opts)
+keymap("n", "<leader>n", ":DapStepOver<CR>", opts)
+keymap("n", "<leader>i", ":DapStepInto<CR>", opts)
+keymap("n", "<leader>up", ":DapStepOut<CR>", opts)
 keymap("n", "<leader>dt", ":DapTerminate<CR>", opts)
 --[[ keymap("n", "<leader>du", ":lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", opts) ]]
 -- keymap("n", "<F11>", ":lua require('dap').set_breakpoint({ nil, nil, vim.fn.input('Log point message: ')})<CR>", opts)

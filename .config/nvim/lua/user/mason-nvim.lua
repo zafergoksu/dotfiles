@@ -1,3 +1,7 @@
+local function desc(description)
+    return { noremap = true, silent = true, buffer = bufnr, desc = description }
+end
+
 local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
 local function lsp_format(client, bufnr)
     vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
@@ -17,20 +21,14 @@ local function make_on_attach(server_name)
         end
 
         local opts = { noremap = true, silent = true }
+        if client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(bufnr, false)
+            vim.keymap.set('n', '<space>h', function()
+                local current_setting = vim.lsp.inlay_hint.is_enabled(bufnr)
+                vim.lsp.inlay_hint.enable(bufnr, not current_setting)
+            end, desc('[lsp] toggle inlay hints'))
+        end
 
-        if server_name == "rust_analyzer" then
-            buf_set_keymap("n", "K", "<cmd>RustHoverActions<CR>", opts)
-        else
-            buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-        end
-        if server_name == "rust_analyzer" then
-            buf_set_keymap("n", "<leader>ff", "<cmd>RustFmt<CR>", opts)
-        else
-            buf_set_keymap("n", "<leader>ff", "<cmd> lua vim.lsp.buf.formatting()<CR>", opts)
-        end
-        if server_name == "rust_analyzer" then
-            buf_set_keymap("n", "gJ", "<cmd>RustJoinLines<CR>", opts)
-        end
         if server_name == "tsserver" then
             client.server_capabilities.document_formatting = false
         end
@@ -48,7 +46,7 @@ end
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "rust_analyzer", "clangd", "dockerls", "bashls", "cmake", "cssls", "gopls",
+    ensure_installed = { "clangd", "codelldb", "dockerls", "bashls", "cmake", "cssls", "gopls",
         "html", "jsonls", "tsserver", "pyright", "svelte", "taplo", "tailwindcss", "zls", "yamlls" }
 })
 
@@ -64,9 +62,6 @@ require("mason-lspconfig").setup_handlers {
     end,
     -- Next, you can provide targeted overrides for specific servers.
     -- For example, a handler override for the `rust_analyzer`:
-    ["rust_analyzer"] = function()
-        require("rust-tools").setup(require("user.rust-tools-nvim").setup)
-    end,
 
     ["tsserver"] = function()
         require("lspconfig")["tsserver"].setup({
@@ -91,3 +86,44 @@ require("mason-lspconfig").setup_handlers {
         })
     end
 }
+
+vim.g.rustaceanvim = function() 
+    local extension_path = vim.env.HOME .. '.local/share/nvim/mason/packages/codelldb/extension/'
+    local codelldb_path = extension_path .. 'adapter/codelldb'
+    local liblldb_path = extension_path .. 'lldb/lib/liblldb'
+    local this_os = vim.uv.os_uname().sysname;
+
+    -- The path is different on Windows
+    if this_os:find "Windows" then
+        codelldb_path = extension_path .. "adapter\\codelldb.exe"
+        liblldb_path = extension_path .. "lldb\\bin\\liblldb.dll"
+    else
+        -- The liblldb extension is .so for Linux and .dylib for MacOS
+        liblldb_path = liblldb_path .. (this_os == "Linux" and ".so" or ".dylib")
+    end
+
+    local cfg = require('rustaceanvim.config')
+
+    return {
+        server = {
+            on_attach = function(client, bufnr)
+                if client.server_capabilities.inlayHintProvider then
+                    vim.lsp.inlay_hint.enable(bufnr, true)
+                    vim.keymap.set('n', '<leader>h', function()
+                        local current_setting = vim.lsp.inlay_hint.is_enabled(bufnr)
+                        vim.lsp.inlay_hint.enable(bufnr, not current_setting)
+                    end, desc('[lsp] toggle inlay hints'))
+                end
+            end,
+            default_settings = {
+                -- rust-analyzer language server configuration
+                ['rust-analyzer'] = {
+                },
+            },
+        },
+        dap = {
+          adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
+        },
+    }
+end
+

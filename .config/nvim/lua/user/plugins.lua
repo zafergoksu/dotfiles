@@ -121,7 +121,7 @@ return packer.startup(function(use)
     use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
 
     -- Rust
-    use "simrat39/rust-tools.nvim"
+    use {"mrcjkb/rustaceanvim", version = "^4", ft = {"rust"}}
 
     -- Debugging
     use "mfussenegger/nvim-dap"
