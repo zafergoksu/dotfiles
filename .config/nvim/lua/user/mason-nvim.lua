@@ -21,13 +21,11 @@ local function make_on_attach(server_name)
         end
 
         local opts = { noremap = true, silent = true }
-        if client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint.enable(bufnr, false)
-            vim.keymap.set('n', '<space>h', function()
-                local current_setting = vim.lsp.inlay_hint.is_enabled(bufnr)
-                vim.lsp.inlay_hint.enable(bufnr, not current_setting)
-            end, desc('[lsp] toggle inlay hints'))
-        end
+        vim.lsp.inlay_hint.enable(bufnr, true)
+        vim.keymap.set('n', '<leader>h', function()
+            local current_setting = vim.lsp.inlay_hint.is_enabled(bufnr)
+            vim.lsp.inlay_hint.enable(bufnr, not current_setting)
+        end, desc('[lsp] toggle inlay hints'))
 
         if server_name == "tsserver" then
             client.server_capabilities.document_formatting = false
@@ -46,7 +44,7 @@ end
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "clangd", "codelldb", "dockerls", "bashls", "cmake", "cssls", "gopls",
+    ensure_installed = { "clangd", "dockerls", "bashls", "cmake", "cssls", "gopls",
         "html", "jsonls", "tsserver", "pyright", "svelte", "taplo", "tailwindcss", "zls", "yamlls" }
 })
 
