@@ -57,6 +57,7 @@ return packer.startup(function(use)
     use "nvim-lua/lsp-status.nvim"
     use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
     use "tpope/vim-surround"
+    use "nvim-neotest/nvim-nio"
 
     -- Git
     use "lewis6991/gitsigns.nvim"
@@ -121,7 +122,7 @@ return packer.startup(function(use)
     use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
 
     -- Rust
-    use {"mrcjkb/rustaceanvim", version = "^4", ft = {"rust"}}
+    use { "mrcjkb/rustaceanvim", version = "^4", ft = { "rust" } }
 
     -- Debugging
     use "mfussenegger/nvim-dap"
