@@ -5,7 +5,7 @@
 --[[ vim.cmd("colorscheme gruvbox") ]]
 
 -- Alabaster
---[[ vim.cmd("colorscheme alabaster") ]]
+vim.cmd("colorscheme alabaster")
 
 -- tokyonight
 --[[ vim.cmd("colorscheme tokyonight-night") ]]
@@ -33,4 +33,4 @@
 --[[ vim.cmd("colorscheme github_dark_tritanopia") ]]
 
 -- vscode
-require('vscode').load()
+--[[ require('vscode').load() ]]
