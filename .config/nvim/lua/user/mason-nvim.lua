@@ -21,7 +21,7 @@ local function make_on_attach(server_name)
         end
 
         local opts = { noremap = true, silent = true }
-        vim.lsp.inlay_hint.enable(bufnr, true)
+        vim.lsp.inlay_hint.enable(true, nil, bufnr)
         vim.keymap.set('n', '<leader>h', function()
             local current_setting = vim.lsp.inlay_hint.is_enabled(bufnr)
             vim.lsp.inlay_hint.enable(bufnr, not current_setting)

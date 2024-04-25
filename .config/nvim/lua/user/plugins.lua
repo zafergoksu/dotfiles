@@ -50,7 +50,7 @@ return packer.startup(function(use)
     use "JoosepAlviste/nvim-ts-context-commentstring"
     use "nvim-tree/nvim-web-devicons"
     use "nvim-tree/nvim-tree.lua"
-    use { "akinsho/bufferline.nvim", tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' }
+    use { "akinsho/bufferline.nvim", requires = 'nvim-tree/nvim-web-devicons' }
     use "moll/vim-bbye"
     use "nvim-lualine/lualine.nvim"
     use "arkav/lualine-lsp-progress"
