@@ -23,8 +23,8 @@ local function make_on_attach(server_name)
         local opts = { noremap = true, silent = true }
         vim.lsp.inlay_hint.enable(true, nil, bufnr)
         vim.keymap.set('n', '<leader>h', function()
-            local current_setting = vim.lsp.inlay_hint.is_enabled(bufnr)
-            vim.lsp.inlay_hint.enable(bufnr, not current_setting)
+            local current_setting = vim.lsp.inlay_hint.is_enabled(nil, bufnr)
+            vim.lsp.inlay_hint.enable(not current_setting, nil, bufnr)
         end, desc('[lsp] toggle inlay hints'))
 
         if server_name == "tsserver" then
@@ -85,7 +85,7 @@ require("mason-lspconfig").setup_handlers {
     end
 }
 
-vim.g.rustaceanvim = function() 
+vim.g.rustaceanvim = function()
     local extension_path = vim.env.HOME .. '.local/share/nvim/mason/packages/codelldb/extension/'
     local codelldb_path = extension_path .. 'adapter/codelldb'
     local liblldb_path = extension_path .. 'lldb/lib/liblldb'
@@ -106,10 +106,10 @@ vim.g.rustaceanvim = function()
         server = {
             on_attach = function(client, bufnr)
                 if client.server_capabilities.inlayHintProvider then
-                    vim.lsp.inlay_hint.enable(bufnr, true)
+                    vim.lsp.inlay_hint.enable(true, nil, bufnr)
                     vim.keymap.set('n', '<leader>h', function()
-                        local current_setting = vim.lsp.inlay_hint.is_enabled(bufnr)
-                        vim.lsp.inlay_hint.enable(bufnr, not current_setting)
+                        local current_setting = vim.lsp.inlay_hint.is_enabled(nil, bufnr)
+                        vim.lsp.inlay_hint.enable(not current_setting, nil, bufnr)
                     end, desc('[lsp] toggle inlay hints'))
                 end
             end,
@@ -120,8 +120,7 @@ vim.g.rustaceanvim = function()
             },
         },
         dap = {
-          adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
+            adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
         },
     }
 end
-
