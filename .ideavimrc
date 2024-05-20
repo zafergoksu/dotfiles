@@ -27,8 +27,8 @@ vnoremap > >gv
 vnoremap = =gv
 
 nnoremap <C-e> :NERDTreeToggle<CR>
-nnoremap <S-l> :bnext<CR>
-nnoremap <S-h> :bprevious<CR>
+nmap <S-l> <Action>(NextTab)
+nmap <S-h> <Action>(PreviousTab)
 map <C-p> <Action>(SearchEverywhere)
 
 nnmoremap <C-h> <C-w>h
