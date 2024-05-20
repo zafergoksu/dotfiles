@@ -5,16 +5,16 @@
 --[[ vim.cmd("colorscheme gruvbox") ]]
 
 -- Alabaster
-vim.cmd("colorscheme alabaster")
+--[[ vim.cmd("colorscheme alabaster") ]]
 
 -- tokyonight
 --[[ vim.cmd("colorscheme tokyonight-night") ]]
 
 -- Ayu
---[[ require("ayu").setup({ ]]
---[[     mirage = false ]]
---[[ }) ]]
---[[ vim.cmd("colorscheme ayu") ]]
+require("ayu").setup({
+    mirage = false
+})
+vim.cmd("colorscheme ayu")
 
 -- catppuccin
 --[[ require("catppuccin").setup({ ]]
