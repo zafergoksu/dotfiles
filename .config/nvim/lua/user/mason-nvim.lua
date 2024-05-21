@@ -21,7 +21,7 @@ local function make_on_attach(server_name)
         end
 
         local opts = { noremap = true, silent = true }
-        vim.lsp.inlay_hint.enable(true, nil, bufnr)
+        vim.lsp.inlay_hint.enable(false, nil, bufnr)
         vim.keymap.set('n', '<leader>h', function()
             local current_setting = vim.lsp.inlay_hint.is_enabled(nil, bufnr)
             vim.lsp.inlay_hint.enable(not current_setting, nil, bufnr)
@@ -106,7 +106,7 @@ vim.g.rustaceanvim = function()
         server = {
             on_attach = function(client, bufnr)
                 if client.server_capabilities.inlayHintProvider then
-                    vim.lsp.inlay_hint.enable(true, nil, bufnr)
+                    vim.lsp.inlay_hint.enable(false, nil, bufnr)
                     vim.keymap.set('n', '<leader>h', function()
                         local current_setting = vim.lsp.inlay_hint.is_enabled(nil, bufnr)
                         vim.lsp.inlay_hint.enable(not current_setting, nil, bufnr)
