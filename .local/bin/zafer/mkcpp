@@ -1,0 +1,42 @@
+#!/bin/bash
+
+DEFAULT_DIR=/home/${USER}/default_cpp_proj_files
+DEFAULT_MAKEFILE=${DEFAULT_DIR}/Makefile
+DEFAULT_GITIGNORE=${DEFAULT_DIR}/.gitignore
+DEFAULT_CLANGFORMAT=${DEFAULT_DIR}/.clang-format
+DEFAULT_CMAKE=${DEFAULT_DIR}/CMakeLists.txt
+
+if [[ -z $1 ]]; then
+    echo "Directory not set! Exiting..."
+    exit
+fi
+
+echo "Using default C++ project config dir: ${DEFAULT_DIR}"
+
+if [[ ! -e "${DEFAULT_MAKEFILE}" ]]; then
+    echo "Could not file default Makefile, exiting..."
+    exit
+fi
+
+if [[ ! -e "${DEFAULT_GITIGNORE}" ]]; then
+    echo "Could not file default .gitignore, exiting..."
+    exit
+fi
+
+if [[ ! -e "${DEFAULT_CLANGFORMAT}" ]]; then
+    echo "Could not file default .clang-format, exiting..."
+    exit
+fi
+
+if [[ ! -e "${DEFAULT_CMAKE}" ]]; then
+    echo "Could not file default CMakeLists.txt, exiting..."
+    exit
+fi
+
+mkdir -p $1
+if [[ -d $1 ]]; then
+    echo "Making ${1}"
+    cd $1 && git init && cp -r ${DEFAULT_DIR}/* ./
+else
+    echo "Could not make directory ${1}"
+fi
