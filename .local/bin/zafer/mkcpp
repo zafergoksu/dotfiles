@@ -36,7 +36,7 @@ fi
 mkdir -p $1
 if [[ -d $1 ]]; then
     echo "Making ${1}"
-    cd $1 && git init && cp -r ${DEFAULT_DIR}/* ./
+    cd $1 && git init && cp -a ${DEFAULT_DIR}/. ./
 else
     echo "Could not make directory ${1}"
 fi
