@@ -4,6 +4,7 @@ input type:touchpad {
 }
 
 set $mod Mod4
+floating_modifier $mod
 
 set $menu rofi -show drun
 set $term alacritty
