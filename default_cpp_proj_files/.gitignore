@@ -40,7 +40,6 @@ compile_commands.json
 *.lib
 
 # Executables
-cpp-chat-client_*
 *.exe
 *.out
 *.app
