@@ -43,8 +43,8 @@ require("dapui").setup({
         },
     },
     floating = {
-        max_height = nil, -- These can be integers or a float between 0 and 1.
-        max_width = nil, -- Floats will be treated as percentage of your screen.
+        max_height = nil,  -- These can be integers or a float between 0 and 1.
+        max_width = nil,   -- Floats will be treated as percentage of your screen.
         border = "single", -- Border style. Can be "single", "double" or "rounded"
         mappings = {
             close = { "q", "<Esc>" },
@@ -98,5 +98,35 @@ dap.configurations.cs = {
         program = function()
             return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
         end,
+    }
+}
+
+dap.adapters.firefox = {
+    type = "executable",
+    command = "node",
+    args = { os.getenv("HOME") .. "/repositories/vscode-firefox-debug/dist/adapter.bundle.js" }
+}
+
+dap.configurations.typescript = {
+    {
+        name = "Debug with Firefox",
+        type = "firefox",
+        request = "launch",
+        reAttach = true,
+        url = "http://localhost:3000",
+        webRoot = "${workspaceFolder}",
+        firefoxExecutable = "/usr/bin/firefox"
+    }
+}
+
+dap.configurations.svelte = {
+    {
+        name = "Debug with Firefox",
+        type = "firefox",
+        request = "launch",
+        reAttach = true,
+        url = "http://localhost:3000",
+        webRoot = "${workspaceFolder}",
+        firefoxExecutable = "/usr/bin/firefox"
     }
 }

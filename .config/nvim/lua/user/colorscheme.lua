@@ -34,3 +34,6 @@ vim.cmd("colorscheme gruvbox")
 
 -- vscode
 --[[ require('vscode').load() ]]
+
+-- kanagawa
+--[[ require("kanagawa").load("dragon") ]]

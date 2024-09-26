@@ -27,7 +27,7 @@ local function make_on_attach(server_name)
             vim.lsp.inlay_hint.enable(not current_setting, nil, bufnr)
         end, desc('[lsp] toggle inlay hints'))
 
-        if server_name == "tsserver" then
+        if server_name == "ts_ls" then
             client.server_capabilities.document_formatting = false
         end
         lsp_format(client, bufnr)
@@ -45,7 +45,7 @@ end
 require("mason").setup()
 require("mason-lspconfig").setup({
     ensure_installed = { "clangd", "dockerls", "bashls", "cmake", "cssls", "gopls",
-        "html", "jsonls", "tsserver", "pyright", "svelte", "taplo", "tailwindcss", "zls", "yamlls" }
+        "html", "jsonls", "ts_ls", "pyright", "svelte", "taplo", "tailwindcss", "zls", "yamlls" }
 })
 
 require("mason-lspconfig").setup_handlers {
@@ -61,9 +61,9 @@ require("mason-lspconfig").setup_handlers {
     -- Next, you can provide targeted overrides for specific servers.
     -- For example, a handler override for the `rust_analyzer`:
 
-    ["tsserver"] = function()
-        require("lspconfig")["tsserver"].setup({
-            on_attach = make_on_attach("tsserver"),
+    ["ts_ls"] = function()
+        require("lspconfig")["ts_ls"].setup({
+            on_attach = make_on_attach("ts_ls"),
             capabilities = make_capabilities(),
             filetypes = { "javascript", "typescript", "typescriptreact", "typescript.tsx" },
         })

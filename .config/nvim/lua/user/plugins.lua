@@ -57,6 +57,7 @@ return packer.startup(function(use)
     use "nvim-lua/lsp-status.nvim"
     use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
     use "tpope/vim-surround"
+    use "tpope/vim-sleuth"
     use "nvim-neotest/nvim-nio"
 
     -- Git
@@ -89,6 +90,8 @@ return packer.startup(function(use)
     use { "catppuccin/nvim", as = "catppuccin" }
     -- rose pine
     use { "rose-pine/neovim", as = "rose-pine" }
+    -- kanagawa
+    use "rebelot/kanagawa.nvim"
 
     -- Telescope
     use "nvim-telescope/telescope.nvim"
