@@ -1,4 +1,3 @@
-import = ["/home/zafer/.config/alacritty/themes/gruvbox_dark.toml"]
 
 [colors]
 draw_bold_text_with_bright_colors = false
@@ -44,3 +43,6 @@ history = 80000
 [window]
 decorations = "full"
 opacity = 1.0
+
+[general]
+import = ["/home/zafer/.config/alacritty/themes/gruvbox_dark.toml"]

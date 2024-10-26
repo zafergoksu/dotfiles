@@ -6,7 +6,14 @@ input type:touchpad {
 set $mod Mod4
 floating_modifier $mod
 
-set $menu rofi -show drun
+input "type:keyboard" {
+    repeat_rate 30
+    repeat_delay 200
+}
+
+set $focused_monitor "$(swaymsg -t get_outputs | jq -c '.[] | select(.focused) | select(.id)' | jq -c '.name')"
+
+set $menu rofi -show drun -monitor "$focused_monitor"
 set $term alacritty
 set $background "~/Pictures/macOS\ Sonoma\ Motion\ Wallpaper\ Stills\ \(8K\ JPEG\)/Iceland\ Lake\ 3.jpeg"
 set $lock ~/.local/bin/zafer/lock
