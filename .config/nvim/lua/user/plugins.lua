@@ -92,6 +92,12 @@ return packer.startup(function(use)
     use { "rose-pine/neovim", as = "rose-pine" }
     -- kanagawa
     use "rebelot/kanagawa.nvim"
+    -- nordic
+    use "AlexvZyl/nordic.nvim"
+    -- yami
+    use 'danishprakash/vim-yami'
+    -- plain
+    use 'andreypopp/vim-colors-plain'
 
     -- Telescope
     use "nvim-telescope/telescope.nvim"

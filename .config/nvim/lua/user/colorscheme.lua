@@ -2,7 +2,7 @@
 --[[ vim.cmd("colorscheme moonfly") ]]
 
 -- gruvbox
-vim.cmd("colorscheme gruvbox")
+--[[ vim.cmd("colorscheme gruvbox") ]]
 
 -- Alabaster
 --[[ vim.cmd("colorscheme alabaster") ]]
@@ -36,4 +36,14 @@ vim.cmd("colorscheme gruvbox")
 --[[ require('vscode').load() ]]
 
 -- kanagawa
---[[ require("kanagawa").load("dragon") ]]
+--[[ require("kanagawa").load() ]]
+
+-- nordic
+--[[ require("nordic").load() ]]
+
+-- yami
+vim.cmd("colorscheme yami")
+
+-- vim-colors-plain
+--[[ vim.cmd("set background=dark") ]]
+--[[ vim.cmd("colorscheme plain") ]]

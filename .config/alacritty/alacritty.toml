@@ -1,4 +1,3 @@
-
 [colors]
 draw_bold_text_with_bright_colors = false
 
@@ -46,3 +45,6 @@ opacity = 1.0
 
 [general]
 import = ["/home/zafer/.config/alacritty/themes/gruvbox_dark.toml"]
+#import = ["/home/zafer/.config/alacritty/themes/alabaster.toml"]
+#import = ["/home/zafer/.config/alacritty/themes/alabaster_dark.toml"]
+# import = ["/home/zafer/.config/alacritty/themes/nordic.toml"]
