@@ -1,18 +1,147 @@
-require("user.options")
-require("user.keymaps")
-require("user.plugins")
-require("user.colorscheme")
-require("user.mason-nvim")
-require("user.null-ls")
-require("user.nvim-lspconfig")
-require("user.cmp")
-require("user.telescope")
-require("user.treesitter")
-require("user.autopairs")
-require("user.comment")
-require("user.nvim-tree")
-require("user.bufferline")
-require("user.lualine")
-require("user.lsp-signature")
-require("user.dap")
-require("user.gitsigns")
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.wrap = false
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.swapfile = false
+vim.g.mapleader = ' '
+vim.o.winborder = 'rounded'
+
+vim.keymap.set('n', '<leader>s', ':update<CR>')
+vim.keymap.set('n', '<leader>q', ':quit<CR>')
+vim.keymap.set('i', 'jj', '<Esc>')
+vim.keymap.set({ 'n', 'v', 'x' }, '<leader>y', '"+y<CR>')
+vim.keymap.set({ 'n', 'v', 'x' }, '<leader>d', '"+d<CR>')
+
+vim.pack.add({
+    { src = 'https://github.com/vague2k/vague.nvim' },
+    { src = 'https://github.com/stevearc/oil.nvim' },
+    { src = 'https://github.com/echasnovski/mini.pick' },
+    { src = 'https://github.com/neovim/nvim-lspconfig' },
+    { src = 'https://github.com/chomosuke/typst-preview.nvim' },
+    { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
+    { src = 'https://github.com/mason-org/mason.nvim' },
+    { src = 'https://github.com/hrsh7th/nvim-cmp' }
+})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(ev)
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        if client:supports_method('textDocument/completion') then
+            vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+        end
+    end,
+})
+vim.cmd('set completeopt+=noselect')
+
+require 'nvim-treesitter.configs'.setup {
+    ensure_installed = "all",
+    sync_install = false,
+    ignore_install = { "" }, -- List of parsers to ignore installing
+    autopairs = {
+        enable = true,
+    },
+    autotag = {
+        enable = true,
+    },
+    highlight = {
+        enable = true, -- false will disable the whole extension
+        disable = { "" }, -- list of language that will be disabled
+        additional_vim_regex_highlighting = true,
+
+    },
+    indent = { enable = true, disable = { "yaml" } },
+    context_commentstring = {
+        enable = true,
+        enable_autocmd = false,
+    }
+}
+
+require 'mason'.setup()
+require 'mini.pick'.setup()
+require 'oil'.setup()
+
+local check_backspace = function()
+    local col = vim.fn.col "." - 1
+    return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
+end
+
+local cmp = require'cmp'
+cmp.setup({
+    mapping = {
+        ["<C-k>"] = cmp.mapping.select_prev_item(),
+        ["<C-j>"] = cmp.mapping.select_next_item(),
+        ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+        ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+        ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+        ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+        ["<C-e>"] = cmp.mapping {
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.close(),
+        },
+        -- Accept currently selected item. If none selected, `select` first item.
+        -- Set `select` to `false` to only confirm explicitly selected items.
+        ["<CR>"] = cmp.mapping.confirm { select = false },
+        ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif check_backspace() then
+                fallback()
+            else
+                fallback()
+            end
+        end, {
+            "i",
+            "s",
+        }),
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            else
+                fallback()
+            end
+        end, {
+            "i",
+            "s",
+        }),
+    },
+    formatting = {
+        fields = { "kind", "abbr", "menu" },
+        format = function(entry, vim_item)
+            -- Kind icons
+            -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+            vim_item.menu = ({
+                nvim_lsp = "[LSP]",
+                nvim_lua = "[NVIM_LUA]",
+                buffer = "[Buffer]",
+                path = "[Path]",
+            })[entry.source.name]
+            return vim_item
+        end,
+    },
+    sources = {
+        { name = "nvim_lsp" },
+        { name = "nvim_lua" },
+        { name = "buffer" },
+        { name = "path" },
+        { name = "npm" },
+    },
+    confirm_opts = {
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = false,
+    },
+    experimental = {
+        ghost_text = false,
+        native_menu = false,
+    },
+})
+
+vim.keymap.set('n', '<C-p>', ':Pick files<CR>')
+vim.keymap.set('n', '<C-e>', ':Oil<CR>')
+
+vim.lsp.enable({ 'lua_ls', 'svelte-language-server', 'clangd', 'gopls', 'rust_analyzer' })
+
+vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
+
+vim.cmd('colorscheme vague')
+vim.cmd(':hi statusline guibg=NONE')
