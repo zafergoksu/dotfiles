@@ -13,6 +13,22 @@ vim.keymap.set('i', 'jj', '<Esc>')
 vim.keymap.set({ 'n', 'v', 'x' }, '<leader>y', '"+y<CR>')
 vim.keymap.set({ 'n', 'v', 'x' }, '<leader>d', '"+d<CR>')
 
+vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
+vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
+vim.keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
+vim.keymap.set("n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
+vim.keymap.set("n", "<leader>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
+vim.keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
+vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
+vim.keymap.set("n", "[g", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
+vim.keymap.set("n", "]g", "<cmd>lua vim.diagnostic.goto_next()<CR>")
+
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
+
 vim.pack.add({
     { src = 'https://github.com/vague2k/vague.nvim' },
     { src = 'https://github.com/stevearc/oil.nvim' },
@@ -21,7 +37,11 @@ vim.pack.add({
     { src = 'https://github.com/chomosuke/typst-preview.nvim' },
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
     { src = 'https://github.com/mason-org/mason.nvim' },
-    { src = 'https://github.com/hrsh7th/nvim-cmp' }
+    { src = 'https://github.com/hrsh7th/nvim-cmp' },
+    { src = 'https://github.com/Shatur/neovim-ayu' },
+    { src = 'https://github.com/lewis6991/gitsigns.nvim' },
+    { src = 'https://github.com/nvim-tree/nvim-web-devicons' },
+    { src = 'https://github.com/akinsho/bufferline.nvim' }
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -143,5 +163,13 @@ vim.lsp.enable({ 'lua_ls', 'svelte-language-server', 'clangd', 'gopls', 'rust_an
 
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
 
-vim.cmd('colorscheme vague')
+-- vim.cmd('colorscheme vague')
+require('ayu').setup({
+    mirage = false
+})
+require('ayu').colorscheme()
 vim.cmd(':hi statusline guibg=NONE')
+
+require('bufferline').setup({})
+vim.keymap.set("n", "<S-l>", ":bnext<CR>")
+vim.keymap.set("n", "<S-h>", ":bprevious<CR>")
