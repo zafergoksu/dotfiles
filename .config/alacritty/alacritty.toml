@@ -44,8 +44,9 @@ decorations = "full"
 opacity = 1.0
 
 [general]
-import = ["/home/zafer/.config/alacritty/themes/ayu_dark.toml"]
+# import = ["/home/zafer/.config/alacritty/themes/ayu_dark.toml"]
 # import = ["/home/zafer/.config/alacritty/themes/gruvbox_dark.toml"]
+import = ["/home/zafer/.config/alacritty/themes/gruvbox_light.toml"]
 # import = ["/home/zafer/.config/alacritty/themes/alabaster.toml"]
 # import = ["/home/zafer/.config/alacritty/themes/alabaster_dark.toml"]
 # import = ["/home/zafer/.config/alacritty/themes/nordic.toml"]

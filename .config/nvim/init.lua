@@ -38,14 +38,17 @@ vim.keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv")
 
 vim.pack.add({
     { src = 'https://github.com/vague2k/vague.nvim' },
-    { src = 'https://github.com/stevearc/oil.nvim' },
-    { src = 'https://github.com/echasnovski/mini.pick' },
+    -- { src = 'https://github.com/stevearc/oil.nvim' },
+    { src = 'https://github.com/nvim-tree/nvim-tree.lua' },
+    -- { src = 'https://github.com/echasnovski/mini.pick' },
+    { src = 'https://github.com/nvim-telescope/telescope.nvim' },
     { src = 'https://github.com/neovim/nvim-lspconfig' },
     { src = 'https://github.com/chomosuke/typst-preview.nvim' },
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
     { src = 'https://github.com/mason-org/mason.nvim' },
     { src = 'https://github.com/hrsh7th/nvim-cmp' },
     { src = 'https://github.com/Shatur/neovim-ayu' },
+    { src = 'https://github.com/morhetz/gruvbox' },
     { src = 'https://github.com/lewis6991/gitsigns.nvim' },
     { src = 'https://github.com/nvim-tree/nvim-web-devicons' },
     { src = 'https://github.com/akinsho/bufferline.nvim' }
@@ -85,8 +88,8 @@ require 'nvim-treesitter.configs'.setup {
 }
 
 require 'mason'.setup()
-require 'mini.pick'.setup()
-require 'oil'.setup()
+-- require 'mini.pick'.setup()
+-- require 'oil'.setup()
 
 local check_backspace = function()
     local col = vim.fn.col "." - 1
@@ -163,18 +166,47 @@ cmp.setup({
     },
 })
 
-vim.keymap.set('n', '<C-p>', ':Pick files<CR>')
-vim.keymap.set('n', '<C-e>', ':Oil<CR>')
+-- vim.keymap.set('n', '<C-p>', ':Pick files<CR>')
+-- vim.keymap.set('n', '<C-e>', ':Oil<CR>')
+vim.keymap.set('n', '<C-e>', ':NvimTreeToggle<CR>')
 
 vim.lsp.enable({ 'lua_ls', 'svelte-language-server', 'clangd', 'gopls', 'rust_analyzer' })
 
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
 
--- vim.cmd('colorscheme vague')
-require('ayu').setup({
-    mirage = false
+local function nvim_tree_on_attach(bufnr)
+    local api = require 'nvim-tree.api'
+    local function opts(desc)
+        return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+    end
+    api.config.mappings.default_on_attach(bufnr)
+    -- custom mappings
+    vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'))
+    vim.keymap.set('n', '<CR>', api.node.open.edit, opts('Open'))
+    vim.keymap.set('n', 'o', api.node.open.edit, opts('Open'))
+    vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts('Close Directory'))
+    vim.keymap.set('n', '<C-v>', api.node.open.vertical, opts('Open: Vertical Split'))
+    vim.keymap.set('n', '<C-x>', api.node.open.horizontal, opts('Open: Horizontal Split'))
+    vim.keymap.set('n', '<C-e>', api.tree.close, opts('Close'))
+end
+
+require('nvim-tree').setup({
+    on_attach = nvim_tree_on_attach
 })
-require('ayu').colorscheme()
+
+require('telescope').setup({})
+local telescope_builtin = require('telescope.builtin')
+
+vim.keymap.set('n', '<C-p>', telescope_builtin.find_files, { desc = 'Telescope find files' })
+
+-- vim.cmd('colorscheme vague')
+-- require('ayu').setup({
+--     mirage = false
+-- })
+-- require('ayu').colorscheme()
+vim.o.background = 'light'
+vim.o.winborder = 'none'
+vim.cmd('colorscheme gruvbox')
 vim.cmd(':hi statusline guibg=NONE')
 
 require('bufferline').setup({})
