@@ -6,6 +6,7 @@ vim.opt.expandtab = true
 vim.opt.swapfile = false
 vim.g.mapleader = ' '
 vim.o.winborder = 'rounded'
+vim.opt.hlsearch = false
 
 vim.keymap.set('n', '<leader>s', ':update<CR>')
 vim.keymap.set('n', '<leader>q', ':quit<CR>')
@@ -49,9 +50,11 @@ vim.pack.add({
     { src = 'https://github.com/hrsh7th/nvim-cmp' },
     { src = 'https://github.com/Shatur/neovim-ayu' },
     { src = 'https://github.com/morhetz/gruvbox' },
+    { src = 'https://github.com/idr4n/github-monochrome.nvim' },
     { src = 'https://github.com/lewis6991/gitsigns.nvim' },
     { src = 'https://github.com/nvim-tree/nvim-web-devicons' },
-    { src = 'https://github.com/akinsho/bufferline.nvim' }
+    { src = 'https://github.com/akinsho/bufferline.nvim' },
+    { src = 'https://github.com/m4xshen/autoclose.nvim' }
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -204,12 +207,17 @@ vim.keymap.set('n', '<C-p>', telescope_builtin.find_files, { desc = 'Telescope f
 --     mirage = false
 -- })
 -- require('ayu').colorscheme()
-vim.o.background = 'light'
-vim.o.winborder = 'none'
-vim.cmd('colorscheme gruvbox')
+-- vim.o.background = 'light'
+-- vim.o.winborder = 'none'
+-- vim.cmd('colorscheme gruvbox')
+
+vim.cmd.colorscheme('github-monochrome')
 vim.cmd(':hi statusline guibg=NONE')
 
 require('bufferline').setup({})
+
+require("autoclose").setup({})
+
 vim.keymap.set("n", "<S-l>", ":bnext<CR>")
 vim.keymap.set("n", "<S-h>", ":bprevious<CR>")
 vim.keymap.set("n", "<leader>bd", ":Bdelete %<CR>")
