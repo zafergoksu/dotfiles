@@ -50,4 +50,5 @@ opacity = 1.0
 # import = ["/home/zafer/.config/alacritty/themes/alabaster.toml"]
 # import = ["/home/zafer/.config/alacritty/themes/alabaster_dark.toml"]
 # import = ["/home/zafer/.config/alacritty/themes/nordic.toml"]
-import = ["/home/zafer/.config/alacritty/github_monochrome/github_monochrome_light.toml"]
+# import = ["/home/zafer/.config/alacritty/github_monochrome/github_monochrome_light.toml"]
+import = ["/home/zafer/.config/alacritty/themes/gruber_darker.toml"]
