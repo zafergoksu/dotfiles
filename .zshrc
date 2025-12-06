@@ -1,5 +1,14 @@
+# if [ "$(tty)" = "/dev/tty1" ] ; then
+#     export QT_QPA_PLATFORM=wayland
+#     export MOZ_ENABLE_WAYLAND=1
+#     export MOZ_WEBRENDER=1
+#     export XDG_SESSION_TYPE=wayland
+#     export XDG_CURRENT_DESKTOP=sway
+#     exec sway
+# fi
+
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$HOME/.local/bin/$USER:$HOME/.cargo/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$HOME/.local/bin/$USER:$HOME/.cargo/bin:/opt/cuda/bin:$HOME/.local/share/bob/nvim-bin:$PATH
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -103,4 +112,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias mdb="cmake --build --preset conan-debug"
+alias mr="cmake --build --preset conan-release"
+alias ll="ls -alh"
+
 source <(fzf --zsh)
+source <(zoxide init zsh)

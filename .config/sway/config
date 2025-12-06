@@ -1,10 +1,17 @@
-input type:touchpad {
-    tap enabled
-    natural_scroll enabled
+set $mod Mod4
+
+set $primary_display "DP-1"
+set $secondary_display "DP-3"
+
+output $primary_display {
+    position 5120,0
+    mode 2560x1440@240Hz
 }
 
-set $mod Mod4
-floating_modifier $mod
+output $secondary_display {
+    position 2560,0
+    mode 2560x1440@165Hz
+}
 
 input "type:keyboard" {
     repeat_rate 30
@@ -13,9 +20,10 @@ input "type:keyboard" {
 
 set $focused_monitor "$(swaymsg -t get_outputs | jq -c '.[] | select(.focused) | select(.id)' | jq -c '.name')"
 
+floating_modifier $mod
 set $menu rofi -show drun -monitor "$focused_monitor"
 set $term alacritty
-set $background "~/Pictures/macOS\ Sonoma\ Motion\ Wallpaper\ Stills\ \(8K\ JPEG\)/Iceland\ Lake\ 3.jpeg"
+# set $background "~/Pictures/macOS\ Sonoma\ Motion\ Wallpaper\ Stills\ \(8K\ JPEG\)/Iceland\ Lake\ 3.jpeg"
 set $lock ~/.local/bin/zafer/lock
 
 bindsym $mod+Return exec $term
@@ -29,7 +37,7 @@ bindsym $mod+v splitv
 
 # Font
 font JetBrains Mono Nerd Font 12
-output * bg $background fill
+# output * bg $background fill
 
 # Window borders
 default_border pixel 1
@@ -100,5 +108,9 @@ set $ws7   7:7
 set $ws8   8:8
 set $ws9   9:9
 set $ws0   10:10
+
+workspace $ws1 output $primary_display
+workspace $ws2 output $primary_display
+workspace $ws3 output $primary_display
 
 exec_always ~/.config/waybar/waybar.sh
