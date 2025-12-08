@@ -17,11 +17,11 @@ vim.pack.add({
     { src = 'https://github.com/m4xshen/autoclose.nvim' }
 })
 
-require('user.cmp')
+require('user.options')
 require('user.keybinds')
+require('user.cmp')
 require('user.nvim-tree')
 require('user.nvim-treesitter')
-require('user.options')
 require('user.telescope')
 
 require('mason').setup()
