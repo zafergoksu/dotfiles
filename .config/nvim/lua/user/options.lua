@@ -1,14 +1,16 @@
+vim.g.mapleader = ' '
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.wrap = false
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.swapfile = false
-vim.g.mapleader = ' '
-vim.o.winborder = 'rounded'
 vim.opt.hlsearch = false
-vim.o.winborder = 'none'
+vim.opt.completeopt:append('noselect')
+vim.o.winborder = 'rounded'
 
+-- LSP completion
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
@@ -17,19 +19,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end
     end,
 })
-vim.cmd('set completeopt+=noselect')
 
--- colorscheme
--- vim.cmd('colorscheme vague')
--- require('ayu').setup({
---     mirage = false
--- })
--- require('ayu').colorscheme()
--- vim.o.background = 'light'
--- vim.cmd('colorscheme gruvbox')
-
--- vim.cmd.colorscheme('github-monochrome')
-
+-- Colorscheme
 vim.cmd.colorscheme('gruber-darker')
-
-vim.cmd(':hi statusline guibg=NONE')
+vim.cmd('hi statusline guibg=NONE')
