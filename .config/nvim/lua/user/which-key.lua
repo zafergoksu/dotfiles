@@ -3,6 +3,13 @@ local wk = require('which-key')
 wk.setup({
     delay = 500,
     icons = { mappings = false },
+    triggers = {
+        { "<leader>a", mode = "nv" },
+        { "<leader>b", mode = "n" },
+        { "<leader>g", mode = "n" },
+        { "<leader>h", mode = "nv" },
+        { "<leader>t", mode = "n" },
+    },
 })
 
 -- Register key group labels
