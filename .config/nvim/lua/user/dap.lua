@@ -11,10 +11,9 @@ require('mason-nvim-dap').setup({
     handlers = {},
 })
 
--- Pick up .vscode/launch.json configurations when present.
-pcall(function()
-    require('dap.ext.vscode').load_launchjs(nil, { codelldb = { 'c', 'cpp', 'rust' } })
-end)
+-- Map codelldb launch.json entries to C/C++/Rust filetypes. nvim-dap now reads
+-- .vscode/launch.json automatically on demand
+require('dap.ext.vscode').type_to_filetypes.codelldb = { 'c', 'cpp', 'rust' }
 
 -- Open/close the DAP UI automatically with a debug session.
 dap.listeners.before.attach.dapui_config = function() dapui.open() end
