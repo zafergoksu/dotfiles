@@ -1,22 +1,22 @@
 local wk = require('which-key')
 
 wk.setup({
-    delay = 500,
-    icons = { mappings = false },
-    triggers = {
-        { "<leader>a", mode = "nv" },
-        { "<leader>b", mode = "n" },
-        { "<leader>g", mode = "n" },
-        { "<leader>h", mode = "nv" },
-        { "<leader>t", mode = "n" },
-    },
+    preset = 'modern',
+    win = { border = 'rounded' },
 })
 
--- Register key group labels
+-- Group labels for the leader-prefixed keymaps defined across the config.
 wk.add({
-    { "<leader>a", group = "Claude" },
-    { "<leader>b", group = "Buffer" },
-    { "<leader>g", group = "Git" },
-    { "<leader>h", group = "Hunk" },
-    { "<leader>t", group = "Toggle" },
+    { '<leader>b', group = 'Buffers' },
+    { '<leader>c', group = 'Code / C++' },
+    { '<leader>d', group = 'Debug' },
+    { '<leader>g', group = 'Git' },
+    { '<leader>h', group = 'Harpoon' },
+    { '<leader>m', group = 'CMake' },
+    { '<leader>p', group = 'Pick (Telescope)' },
+    { '<leader>t', group = 'Terminal' },
+    { '<leader>u', group = 'UI toggles' },
+    { '<leader>x', group = 'Trouble / Diagnostics' },
+    { '<leader>G', group = 'Godbolt (Compiler Explorer)' },
+    { '<leader>T', group = 'Tests' },
 })
