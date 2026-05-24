@@ -69,7 +69,9 @@ local function resolve(root)
     local ok, ct = pcall(require, 'cmake-tools')
     if ok and ct.get_build_directory then
         local okd, dir = pcall(ct.get_build_directory)
-        if okd and has_cc(dir) then return dir end
+        -- get_build_directory() returns a plenary Path object; coerce to a string
+        -- so downstream `'--compile-commands-dir=' .. dir` (string .. Path) works.
+        if okd and has_cc(dir) then return tostring(dir) end
     end
 
     local found = detect(root)

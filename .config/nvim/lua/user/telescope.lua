@@ -20,12 +20,16 @@ telescope.setup({
             override_file_sorter = true,
             case_mode = 'smart_case',
         },
+        -- Route vim.ui.select() through telescope (cmake target picker, the
+        -- dap executable picker, LSP code actions, etc.).
+        ['ui-select'] = {},
     },
 })
 
 -- These are built lazily; the fzf native library is compiled from init.lua.
 pcall(telescope.load_extension, 'fzf')
 pcall(telescope.load_extension, 'toggleterm')
+pcall(telescope.load_extension, 'ui-select')
 
 local builtin = require('telescope.builtin')
 local map = vim.keymap.set

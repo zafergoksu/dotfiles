@@ -18,5 +18,4 @@ wk.add({
     { '<leader>u', group = 'UI toggles' },
     { '<leader>x', group = 'Trouble / Diagnostics' },
     { '<leader>G', group = 'Godbolt (Compiler Explorer)' },
-    { '<leader>T', group = 'Tests' },
 })

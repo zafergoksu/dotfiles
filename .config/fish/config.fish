@@ -10,10 +10,10 @@ set -g theme_hide_hostname no
 set -g theme_hostname always
 
 # alias
-if command -v exa > /dev/null
-	abbr -a l 'exa -la'
-	abbr -a ls 'exa'
-	abbr -a ll 'exa -l'
+if command -v eza > /dev/null
+	abbr -a l 'eza -la'
+	abbr -a ls 'eza'
+	abbr -a ll 'eza -l'
 else
     abbr -a ls 'ls'
 	abbr -a l 'ls -l'

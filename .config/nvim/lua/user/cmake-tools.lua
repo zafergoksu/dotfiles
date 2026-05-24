@@ -1,6 +1,6 @@
 require('cmake-tools').setup({
     cmake_command = 'cmake',
-    cmake_build_directory = 'build',
+    cmake_build_directory = 'build/${variant:buildType}',
     cmake_generate_options = { '-DCMAKE_EXPORT_COMPILE_COMMANDS=ON' },
     -- Soft-link build/compile_commands.json into the project root so clangd
     -- finds it (see also user.compile-commands for a manual fallback).
@@ -19,7 +19,8 @@ require('cmake-tools').setup({
 local map = vim.keymap.set
 map('n', '<leader>mg', '<cmd>CMakeGenerate<cr>', { desc = 'CMake generate' })
 map('n', '<leader>mb', '<cmd>CMakeBuild<cr>', { desc = 'CMake build' })
-map('n', '<leader>mr', '<cmd>CMakeRun<cr>', { desc = 'CMake run' })
+map('n', '<leader>mr', '<cmd>CMakeRun<cr>', { desc = 'CMake run (launch target)' })
+map('n', '<leader>mu', '<cmd>CMakeRunTest<cr>', { desc = 'CMake run tests (ctest)' })
 map('n', '<leader>md', '<cmd>CMakeDebug<cr>', { desc = 'CMake debug' })
 map('n', '<leader>mt', '<cmd>CMakeSelectBuildType<cr>', { desc = 'Select build type' })
 map('n', '<leader>ms', '<cmd>CMakeSelectBuildTarget<cr>', { desc = 'Select build target' })

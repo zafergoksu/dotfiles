@@ -30,9 +30,9 @@ end
 -- The `main` branch compiles parsers from source via the tree-sitter CLI.
 -- Without it, installs fail noisily and there's no point trying.
 if vim.fn.executable('tree-sitter') == 1 then
-    -- Install the essentials synchronously first: some plugins build treesitter
-    -- queries at load time (e.g. neotest-gtest needs `cpp`) and would error on a
-    -- fresh setup where parsers are still downloading. Then fetch the rest async.
+    -- Install the essentials synchronously first so core languages highlight
+    -- immediately on a fresh setup where parsers are still downloading. Then
+    -- fetch the rest async.
     local core = { 'c', 'cpp', 'lua', 'vim', 'vimdoc', 'query', 'markdown', 'markdown_inline' }
     pcall(function()
         local handle = ts.install(core)

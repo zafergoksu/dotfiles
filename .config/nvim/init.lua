@@ -15,6 +15,7 @@ vim.pack.add({
     { src = 'https://github.com/nvim-lua/plenary.nvim' },
     { src = 'https://github.com/nvim-telescope/telescope.nvim' },
     { src = 'https://github.com/nvim-telescope/telescope-fzf-native.nvim' },
+    { src = 'https://github.com/nvim-telescope/telescope-ui-select.nvim' },
 
     -- LSP
     { src = 'https://github.com/neovim/nvim-lspconfig' },
@@ -65,10 +66,6 @@ vim.pack.add({
     { src = 'https://github.com/p00f/clangd_extensions.nvim' },
     { src = 'https://github.com/Civitasv/cmake-tools.nvim' },
     { src = 'https://github.com/krady21/compiler-explorer.nvim' },
-
-    -- Testing
-    { src = 'https://github.com/nvim-neotest/neotest' },
-    { src = 'https://github.com/alfaix/neotest-gtest' },
 
     -- Other
     { src = 'https://github.com/chomosuke/typst-preview.nvim' },
@@ -157,9 +154,6 @@ require('user.clangd-extensions')
 require('user.cmake-tools')
 require('user.compile-commands')
 require('user.compiler-explorer')
-
--- Testing
-require('user.neotest')
 
 -- AI Tools
 require('user.claudecode')
