@@ -30,6 +30,7 @@ overwrites existing files and refuses non-empty targets unless `--here`).
 <project>/
 ├── CMakeLists.txt            # C++23, warnings, src/app/tests subdirs
 ├── conanfile.py              # test_requires gtest; cmake_layout
+├── Makefile                  # make build/test/run/format/clean wrappers
 ├── .clang-format             # Google base, Allman braces, 80 col
 ├── .clang-tidy
 ├── .gitignore                # build/, Conan-generated files, etc.
@@ -60,7 +61,10 @@ already has `.git`); it won't re-init git, and it never overwrites existing file
 
 ## After scaffolding
 
-Tell the user the build flow (also in the generated README):
+The project ships a `Makefile` (`make`, `make test`, `make run`, `make format`,
+`make clean`; `BUILD_TYPE=Release` for release). The first build of a config runs
+`conan install --build=missing`, which compiles uncached deps (e.g. GoogleTest)
+from source — slow but not hung. The equivalent manual flow (also in the README):
 
 ```bash
 conan install . --build=missing -s build_type=Debug
