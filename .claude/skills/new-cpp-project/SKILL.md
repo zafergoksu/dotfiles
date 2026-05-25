@@ -62,12 +62,15 @@ already has `.git`); it won't re-init git, and it never overwrites existing file
 ## After scaffolding
 
 The project ships a `Makefile` (`make`, `make test`, `make run`, `make format`,
-`make clean`; `BUILD_TYPE=Release` for release). The first build of a config runs
-`conan install --build=missing`, which compiles uncached deps (e.g. GoogleTest)
-from source — slow but not hung. The equivalent manual flow (also in the README):
+`make clean`; `BUILD_TYPE=Release` for release). It selects the Conan host
+profile via `-pr` named after the build type, so profiles `debug` and `release`
+must exist (the README's "Conan profiles" section shows how to create them). The
+first build of a config runs `conan install --build=missing`, which compiles
+uncached deps (e.g. GoogleTest) from source — slow but not hung. Equivalent
+manual flow (also in the README):
 
 ```bash
-conan install . --build=missing -s build_type=Debug
+conan install . --build=missing -pr debug
 cmake --preset conan-debug
 cmake --build --preset conan-debug
 ctest --preset conan-debug --output-on-failure

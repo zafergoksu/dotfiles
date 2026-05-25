@@ -10,12 +10,17 @@
 # Release build: append BUILD_TYPE=Release to any target, e.g.
 #   make test BUILD_TYPE=Release
 #
+# Builds use the Conan profile named after the build type via `-pr` (the host
+# profile): BUILD_TYPE=Debug -> `-pr debug`, Release -> `-pr release`. Profiles
+# named `debug` and `release` must therefore exist (see README "Conan profiles").
+#
 # Note: the first build of a given BUILD_TYPE runs `conan install --build=missing`,
 # which compiles any uncached dependency (e.g. GoogleTest) from source. That step
 # can look quiet for a minute but is building, not hung; later builds use the cache.
 
 BUILD_TYPE ?= Debug
-PRESET     := conan-$(shell printf '%s' '$(BUILD_TYPE)' | tr '[:upper:]' '[:lower:]')
+PROFILE    := $(shell printf '%s' '$(BUILD_TYPE)' | tr '[:upper:]' '[:lower:]')
+PRESET     := conan-$(PROFILE)
 BUILD_DIR  := build/$(BUILD_TYPE)
 STAMP      := $(BUILD_DIR)/.configured
 FIND_SRC   := find app src tests include -type f \( -name '*.cpp' -o -name '*.hpp' \)
@@ -26,7 +31,7 @@ all: build
 
 # Resolve dependencies and configure once; re-runs only after `make clean`.
 $(STAMP):
-	conan install . --build=missing -s build_type=$(BUILD_TYPE)
+	conan install . --build=missing -pr $(PROFILE)
 	cmake --preset $(PRESET)
 	@touch $(STAMP)
 
