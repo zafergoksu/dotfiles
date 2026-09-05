@@ -1,8 +1,16 @@
 local wk = require('which-key')
 
+-- Popup is off by default; <leader>uk flips this (see keybinds.lua).
+vim.g.which_key_enabled = false
+
 wk.setup({
     preset = 'modern',
     win = { border = 'rounded' },
+    -- delay is re-evaluated on every keypress, so flipping the flag
+    -- takes effect immediately without re-running setup().
+    delay = function()
+        return vim.g.which_key_enabled and 200 or 1000000000
+    end,
 })
 
 -- Group labels for the leader-prefixed keymaps defined across the config.
