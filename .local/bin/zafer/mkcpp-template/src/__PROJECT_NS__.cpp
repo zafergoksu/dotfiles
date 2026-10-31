@@ -1,10 +1,8 @@
 #include "{{PROJECT_NS}}/{{PROJECT_NS}}.hpp"
 
-namespace {{PROJECT_NS}}
-{
+namespace {{PROJECT_NS}} {
 
-std::string greeting()
-{
+std::string greeting() {
     return "Hello from {{PROJECT_NAME}}!";
 }
 

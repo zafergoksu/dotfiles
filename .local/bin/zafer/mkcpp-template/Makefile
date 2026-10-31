@@ -20,7 +20,7 @@
 
 BUILD_TYPE ?= Debug
 PROFILE    := $(shell printf '%s' '$(BUILD_TYPE)' | tr '[:upper:]' '[:lower:]')
-PRESET     := conan-$(PROFILE)
+PRESET     := $(PROFILE)
 BUILD_DIR  := build/$(BUILD_TYPE)
 STAMP      := $(BUILD_DIR)/.configured
 FIND_SRC   := find app src tests include -type f \( -name '*.cpp' -o -name '*.hpp' \)

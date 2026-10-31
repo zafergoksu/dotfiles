@@ -1,42 +1,144 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#
+# mkcpp: scaffold a C++23 library+app project (CMake + Conan 2 + GoogleTest).
+#
+# Usage:
+#   mkcpp <name> [target-dir]   # create <target-dir> (default ./<slug>)
+#   mkcpp --here <name>         # scaffold into the current directory
+#
+# <name> may be given in any case; it is normalised into:
+#   PROJECT_SLUG   kebab-case   dir / repo / CMake project / executable name
+#   PROJECT_NS     snake_case   C++ namespace + library/test CMake targets
+#   PROJECT_CLASS  PascalCase   Conan recipe class name
+#   PROJECT_NAME   the raw name display string (README / description)
+#
+# Never overwrites existing files. Initialises git (unless already a repo)
+# and makes the first commit.
+#
+# Project files live in mkcpp-template/ next to this script. Contents use
+# {{PROJECT_SLUG}}, {{PROJECT_NS}}, {{PROJECT_CLASS}} and {{PROJECT_NAME}};
+# paths use the __PROJECT_NS__ token.
 
-DEFAULT_DIR=/home/${USER}/default_cpp_proj_files
-DEFAULT_MAKEFILE=${DEFAULT_DIR}/Makefile
-DEFAULT_GITIGNORE=${DEFAULT_DIR}/.gitignore
-DEFAULT_CLANGFORMAT=${DEFAULT_DIR}/.clang-format
-DEFAULT_CMAKE=${DEFAULT_DIR}/CMakeLists.txt
+set -euo pipefail
 
-if [[ -z $1 ]]; then
-    echo "Directory not set! Exiting..."
-    exit
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+TEMPLATE_DIR="$SCRIPT_DIR/mkcpp-template"
+
+usage() { echo "usage: mkcpp [--here] <name> [target-dir]"; }
+
+case "${1:-}" in
+  -h | --help)
+    usage
+    exit 0
+    ;;
+esac
+
+HERE=0
+if [ "${1:-}" = "--here" ]; then
+  HERE=1
+  shift
 fi
 
-echo "Using default C++ project config dir: ${DEFAULT_DIR}"
-
-if [[ ! -e "${DEFAULT_MAKEFILE}" ]]; then
-    echo "Could not file default Makefile, exiting..."
-    exit
+NAME="${1:-}"
+if [ -z "$NAME" ]; then
+  usage >&2
+  exit 1
 fi
 
-if [[ ! -e "${DEFAULT_GITIGNORE}" ]]; then
-    echo "Could not file default .gitignore, exiting..."
-    exit
+# --- Normalise the name into its variants -----------------------------------
+SLUG="$(printf '%s' "$NAME" \
+  | tr '[:upper:]' '[:lower:]' \
+  | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//')"
+if [ -z "$SLUG" ]; then
+  echo "error: '$NAME' contains no usable [a-z0-9] characters" >&2
+  exit 1
 fi
+NS="$(printf '%s' "$SLUG" | tr '-' '_')"
+CLASS="$(printf '%s' "$SLUG" | sed -E 's/(^|-)([a-z0-9])/\U\2/g')"
 
-if [[ ! -e "${DEFAULT_CLANGFORMAT}" ]]; then
-    echo "Could not file default .clang-format, exiting..."
-    exit
-fi
-
-if [[ ! -e "${DEFAULT_CMAKE}" ]]; then
-    echo "Could not file default CMakeLists.txt, exiting..."
-    exit
-fi
-
-mkdir -p $1
-if [[ -d $1 ]]; then
-    echo "Making ${1}"
-    cd $1 && git init && cp -a ${DEFAULT_DIR}/. ./
+# --- Resolve the target directory -------------------------------------------
+if [ "$HERE" -eq 1 ]; then
+  TARGET="$(pwd)"
 else
-    echo "Could not make directory ${1}"
+  TARGET="${2:-$(pwd)/$SLUG}"
+  mkdir -p "$TARGET"
+  if [ -n "$(ls -A "$TARGET" 2>/dev/null)" ]; then
+    echo "error: $TARGET is not empty (use --here to scaffold into it anyway)" >&2
+    exit 1
+  fi
 fi
+TARGET="$(cd "$TARGET" && pwd)"
+
+# --- Stage the template, substitute placeholders, then install --------------
+STAGE="$(mktemp -d)"
+trap 'rm -rf "$STAGE"' EXIT
+cp -a "$TEMPLATE_DIR/." "$STAGE/"
+
+# gitignore is stored without a leading dot so it does not act as ignore
+# rules inside the dotfiles repo; restore the real name now.
+[ -f "$STAGE/gitignore" ] && mv "$STAGE/gitignore" "$STAGE/.gitignore"
+
+# Rename any path component carrying the namespace placeholder. Handle one
+# entry at a time, deepest-first, substituting only the basename, so a parent
+# rename never invalidates a not-yet-processed child path.
+while :; do
+  path="$(find "$STAGE" -depth -name '*__PROJECT_NS__*' | head -n1)"
+  [ -z "$path" ] && break
+  dir="$(dirname "$path")"
+  base="$(basename "$path")"
+  mv "$path" "$dir/${base//__PROJECT_NS__/$NS}"
+done
+
+# Escape replacement strings for sed (delimiter '|', plus & and backslash).
+esc() { printf '%s' "$1" | sed -e 's/[&|\\]/\\&/g'; }
+e_slug="$(esc "$SLUG")"; e_ns="$(esc "$NS")"
+e_class="$(esc "$CLASS")"; e_name="$(esc "$NAME")"
+
+grep -rIlZ -F '{{PROJECT_' "$STAGE" | while IFS= read -r -d '' f; do
+  sed -i \
+    -e "s|{{PROJECT_SLUG}}|$e_slug|g" \
+    -e "s|{{PROJECT_NS}}|$e_ns|g" \
+    -e "s|{{PROJECT_CLASS}}|$e_class|g" \
+    -e "s|{{PROJECT_NAME}}|$e_name|g" \
+    "$f"
+done
+
+# Refuse to clobber any pre-existing file in the target.
+conflicts=()
+while IFS= read -r src; do
+  rel="${src#"$STAGE"/}"
+  [ -e "$TARGET/$rel" ] && conflicts+=("$rel")
+done < <(find "$STAGE" -type f)
+if [ "${#conflicts[@]}" -gt 0 ]; then
+  echo "error: refusing to overwrite existing files in $TARGET:" >&2
+  printf '  %s\n' "${conflicts[@]}" >&2
+  exit 1
+fi
+
+cp -a "$STAGE/." "$TARGET/"
+
+# --- Initialise git and make the first commit -------------------------------
+cd "$TARGET"
+if [ -d .git ]; then
+  echo "note: existing git repo detected -- not re-initialising."
+else
+  git init -q
+fi
+git add -A
+if git diff --cached --quiet; then
+  echo "note: nothing to commit."
+else
+  git commit -q -m "scaffold $SLUG: C++23 library+app (CMake + Conan 2 + GoogleTest)"
+fi
+
+cat <<EOF
+
+Scaffolded '$SLUG' in $TARGET
+
+Next steps:
+  cd $TARGET
+  conan install . --build=missing -pr debug
+  cmake --preset debug
+  cmake --build --preset debug
+  ctest --preset debug --output-on-failure
+EOF

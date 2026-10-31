@@ -56,6 +56,6 @@ structure, so a config at `~/.config/foo` is tracked at `.config/foo` in the rep
 - `.claude/skills/` is tracked even though `.claude` is in `EXCLUDES`: rsync
   matches exclude patterns relative to each entry's own transfer root, so when
   `.claude/skills` is mirrored the `.claude` pattern matches nothing inside it.
-  This is what tracks personal skills (sync-dotfiles, new-cpp-project) in the
+  This is what tracks personal skills (e.g. sync-dotfiles) in the
   repo. A skill that adds a top-level `docs/` or `plugins/` dir would have it
   silently dropped by the global excludes.

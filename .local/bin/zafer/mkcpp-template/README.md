@@ -46,35 +46,45 @@ Release builds: append `BUILD_TYPE=Release` to any target, e.g.
 
 | `make` target | Equivalent commands |
 |---------------|---------------------|
-| `make` / `make build` | `conan install . --build=missing -pr debug`<br>`cmake --preset conan-debug`<br>`cmake --build --preset conan-debug` |
-| `make test` | *(build, then)* `ctest --preset conan-debug --output-on-failure` |
+| `make` / `make build` | `conan install . --build=missing -pr debug`<br>`cmake --preset debug`<br>`cmake --build --preset debug` |
+| `make test` | *(build, then)* `ctest --preset debug --output-on-failure` |
 | `make run` | *(build, then)* `./build/Debug/bin/{{PROJECT_SLUG}}` |
 | `make format` | `clang-format --style=file -i` over `app/ src/ tests/ include/` |
 | `make format-check` | the same with `--dry-run --Werror` |
 | `make clean` | `rm -rf build CMakeUserPresets.json` |
 
 For `BUILD_TYPE=Release`, swap `-pr debug` -> `-pr release` and
-`conan-debug` -> `conan-release`.
+`debug` -> `release` in the presets.
 
 ## Build & test (manual)
 
 The same steps without `make`:
 
 ```bash
-# 1. Resolve dependencies and generate the CMake toolchain + presets.
+# 1. Resolve dependencies and generate the CMake toolchain.
 conan install . --build=missing -pr debug   # see "Conan profiles" below
 
-# 2. Configure, build, and test via the Conan-generated preset.
-cmake --preset conan-debug
-cmake --build --preset conan-debug
-ctest --preset conan-debug --output-on-failure
+# 2. Configure, build, and test via the project presets (CMakePresets.json).
+cmake --preset debug
+cmake --build --preset debug
+ctest --preset debug --output-on-failure
 
 # 3. Run the app.
 ./build/Debug/bin/{{PROJECT_SLUG}}
 ```
 
 For a release build, swap `-pr debug` -> `-pr release` and
-`conan-debug` -> `conan-release`.
+`debug` -> `release` in the presets.
+
+### Presets
+
+`CMakePresets.json` defines `debug` and `release` configure/build/test presets:
+Ninja, clang/clang++, `CMAKE_EXPORT_COMPILE_COMMANDS=ON` (for clangd), building
+into `build/Debug` / `build/Release`. Each preset points at the Conan-generated
+toolchain in `build/<Type>/generators/`, so `conan install` must run before the
+first configure of a given type. Conan also writes its own `CMakeUserPresets.json`
+(`conan-debug` / `conan-release`); those keep working, but the project presets
+are the canonical interface (the `Makefile` and CI use them).
 
 Build outputs:
 
@@ -125,3 +135,6 @@ checks.
 CI deliberately uses `conan profile detect` + `-s build_type=Release` rather than
 `-pr release`: a fresh runner has no named profiles, so it detects the runner's
 own compiler. Local builds use the named `debug`/`release` profiles instead.
+Note the presets pin clang/clang++ for the project itself (preinstalled on
+`ubuntu-latest`), even if the detected Conan profile builds dependencies with GCC —
+both use libstdc++, so linking is compatible.
