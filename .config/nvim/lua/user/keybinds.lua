@@ -67,7 +67,7 @@ end, { desc = 'Toggle wrap' })
 map('n', '<leader>us', function()
     vim.opt.spell = not vim.opt.spell:get()
 end, { desc = 'Toggle spell' })
-map('n', '<leader>uk', function()
+map('n', '<leader>?', function()
     vim.g.which_key_enabled = not vim.g.which_key_enabled
     vim.notify('which-key ' .. (vim.g.which_key_enabled and 'enabled' or 'disabled'))
 end, { desc = 'Toggle which-key popup' })

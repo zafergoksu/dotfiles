@@ -1,6 +1,6 @@
 -- Leader must be set before plugins/keymaps load.
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- nvim-tree wants netrw disabled.
 vim.g.loaded_netrw = 1
@@ -12,14 +12,16 @@ local opt = vim.opt
 opt.number = true
 opt.relativenumber = true
 opt.cursorline = true
-opt.signcolumn = 'yes'
+opt.signcolumn = "yes"
 opt.termguicolors = true
-opt.showmode = false       -- lualine shows the mode
-opt.laststatus = 3         -- global statusline
-opt.winborder = 'rounded'
+opt.showmode = false -- lualine shows the mode
+opt.laststatus = 3 -- global statusline
+opt.winborder = "rounded"
 opt.scrolloff = 8
 opt.sidescrolloff = 8
-opt.wrap = false
+opt.wrap = true
+opt.linebreak = true
+opt.breakindent = true
 
 -- Indentation
 opt.shiftwidth = 4
@@ -29,7 +31,7 @@ opt.expandtab = true
 opt.smartindent = true
 
 -- Search
-opt.hlsearch = true        -- highlight matches; <Esc> clears (see keybinds)
+opt.hlsearch = true -- highlight matches; <Esc> clears (see keybinds)
 opt.incsearch = true
 opt.ignorecase = true
 opt.smartcase = true
@@ -44,31 +46,33 @@ opt.splitright = true
 opt.splitbelow = true
 
 -- Completion / responsiveness
-opt.completeopt = { 'menu', 'menuone', 'noselect' }
+opt.completeopt = { "menu", "menuone", "noselect" }
 -- Neovim 0.12 built-in autocompletion: pinned off so it can't compete with nvim-cmp.
-pcall(function() vim.o.autocomplete = false end)
+pcall(function()
+	vim.o.autocomplete = false
+end)
 opt.updatetime = 250
-opt.timeoutlen = 400
+opt.timeoutlen = 1000
 
 -- Diagnostics
 vim.diagnostic.config({
-    virtual_text = true,
-    severity_sort = true,
-    underline = true,
-    update_in_insert = false,
-    float = { border = 'rounded', source = true },
-    signs = {
-        text = {
-            [vim.diagnostic.severity.ERROR] = '',
-            [vim.diagnostic.severity.WARN] = '',
-            [vim.diagnostic.severity.INFO] = '',
-            [vim.diagnostic.severity.HINT] = '',
-        },
-    },
+	virtual_text = true,
+	severity_sort = true,
+	underline = true,
+	update_in_insert = false,
+	float = { border = "rounded", source = true },
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "",
+			[vim.diagnostic.severity.WARN] = "",
+			[vim.diagnostic.severity.INFO] = "",
+			[vim.diagnostic.severity.HINT] = "",
+		},
+	},
 })
 
 -- Colorscheme
 pcall(function()
-    require('tokyonight').setup({ style = 'night' })
-    vim.cmd.colorscheme('tokyonight-night')
+	require("tokyonight").setup({ style = "night" })
+	vim.cmd.colorscheme("tokyonight-night")
 end)
